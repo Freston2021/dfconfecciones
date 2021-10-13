@@ -1,0 +1,98 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+{% load staticfiles %}
+   {% for post in posts %}
+    <div class="col-md-8 post">
+
+          <div class="date">
+            {{ post.published_date }}
+          </div>
+          <!-- <h1><a href="{% url 'post_detail' pk=post.pk %}#menu">{{ post.title }}</a></h1>-->
+          <!--  <h1><p>{{ post.text|safe|linebreaks }}</p></h1>-->
+           <div class="posta">
+             <br>
+         <h1><a>{{ post.title }}</a></h1>
+         <br>
+         <!--<h4><a>Instituciones, Industrias, Corporaciones, Hoteleria, Gastronomia, Campañas publicitarias...</a></h4>-->
+         </div>
+
+         <div class="post">
+              <h4>{{ post.text|safe }}</h4>
+              <br>
+                </div>
+        <div class="post">
+          <a class="comentarios" href="{% url 'post_detail' pk=post.pk %}#menu">Comentarios: {{ post.approved_comments.count }}</a>
+          <br>
+        </div>
+
+        </div>
+    {% endfor %}
+<!-- SLIDESHOW -->
+<div class="col-md-4 slideshow-container">
+
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 5</div>
+    <img src="{% static 'imagenes/img4.png' %}" style="width:100%">
+    <div class="text">Industria</div>
+  </div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 5</div>
+  <img src="{% static 'imagenes/img1.png' %}" style="width:100%">
+  <div class="text">Instituciones</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 5</div>
+  <img src="{% static 'imagenes/img2.png' %}" style="width:100%">
+  <div class="text">Salud</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">4 / 5</div>
+  <img src="{% static 'imagenes/img3.png' %}" style="width:100%">
+  <div class="text">Uniformes Deportivos</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">5 / 5</div>
+  <img src="{% static 'imagenes/img5.png' %}" style="width:100%">
+  <div class="text">Bolsas Ecológicas</div>
+</div>
+
+
+</div>
+<!--<br>-->
+
+<div style="text-align:center">
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex> slides.length) {slideIndex = 1}
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 3500); // Change image every 2 seconds
+}
+</script>
+<br>
+{% endblock %}

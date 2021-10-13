@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="UTF-8">
+<title></title>
+{% block extracss %}{% endblock %}
+</head>
+<body>
+<div class="row">
+        <div class="col-md-6">
+        <div class="contact">
+        <div class="contactame">
+        <!---<br>
+        <p>Contáctame</p>
+        <ul>
+        <li>Daysi Fernandez</li>
+       <li>La Paz - Bolivia </li>
+       <li>Tel.: +591 70679838</li>
+       <li><a href="mailto:dfdtex@gmail.com">dfdtex@gmail.com</a></li>--->
+        </ul>
+        </div>
+
+    {% block contact_form %}{% endblock %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    {% block extrajs %}{% endblock %}
+    </div>
+    </div>
+    </div>
+</body>
+</html>
+{% endblock %}
