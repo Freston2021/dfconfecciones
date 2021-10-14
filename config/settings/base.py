@@ -44,6 +44,7 @@ LOCAL_APPS = [
     'sortedm2m',
     'contact_form',
     'ckeditor',
+    'whitenoise.runserver_nostatic',
 ]
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -171,6 +172,8 @@ STATICFILES_DIRS = (
 )
 
 print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
