@@ -94,7 +94,7 @@ ADMINS = [
 MANAGERS = ADMINS
 
 
-#DATABASE CONFIGURATION---------------------------------------------------------
+#DATABASE CONFIGURATION--------------------------------------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
