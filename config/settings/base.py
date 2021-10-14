@@ -161,14 +161,14 @@ print ("Media Root path -->", MEDIA_ROOT)
 MEDIA_URL = '/media/'
 print ("Media Url path -->", MEDIA_URL)
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 print ("Static Root path -->", STATIC_ROOT)
 
 STATIC_URL = '/static/'
 print ("Static Url path -->", STATIC_URL)
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
