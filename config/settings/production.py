@@ -75,28 +75,16 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 
 #DATABASE CONFIGURATION---------------------------------------------------------
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'def0956b3btq4f',
-#        'USER': 'nmjnmzwhjzqimy',
-#        'PASSWORD': 'b2c754a6c6dbeb65d5079178481c1c4570b7544d9c7fe4a5ac5000422b0971f7',
-#        'HOST': 'ec2-54-225-107-107.compute-1.amazonaws.com',
-#        'PORT': '5432',
-#    }
-#}
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'database-1',
-        'USER': 'postgres',
-        'PASSWORD': 'arn:aws:kms:sa-east-1:235745544233:key/10c1de8a-a28d-477a-bbfe-a97f685c5c00',
-        'HOST': 'database-1.cpbh6tked72e.sa-east-1.rds.amazonaws.com',
+        'NAME': 'def0956b3btq4f',
+        'USER': 'nmjnmzwhjzqimy',
+        'PASSWORD': 'b2c754a6c6dbeb65d5079178481c1c4570b7544d9c7fe4a5ac5000422b0971f7',
+        'HOST': 'ec2-54-225-107-107.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
-
 
 
 #CACHING------------------------------------------------------------------------
