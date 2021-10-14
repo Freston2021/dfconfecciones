@@ -25,10 +25,6 @@ CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
 
-#SITE CONFIGURATION-------------------------------------------------------------
-ALLOWED_HOSTS = ['0.0.0.0', 'dfconfecciones.herokuapp.com']
-
-
 #STORAGE CONFIGURATION----------------------------------------------------------
 INSTALLED_APPS += ['gunicorn', 'storages', ]
 

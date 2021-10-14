@@ -51,6 +51,10 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 
+#SITE CONFIGURATION-------------------------------------------------------------
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'dfconfecciones.herokuapp.com']
+
+
 #MIDDLEWARE CONFIGURATION-------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
