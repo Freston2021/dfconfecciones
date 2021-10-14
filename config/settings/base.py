@@ -147,21 +147,26 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 #STATIC FILE CONFIGURATION------------------------------------------------------
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print ("base dir path -->", BASE_DIR)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+print ("Media Root path -->", MEDIA_ROOT)
+
 MEDIA_URL = '/media/'
+print ("Media Url path -->", MEDIA_URL)
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+print ("Static Root path -->", STATIC_ROOT)
+
 STATIC_URL = '/static/'
-
+print ("Static Url path -->", STATIC_URL)
 
 STATICFILES_DIRS = (
-    os.path.join('static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
