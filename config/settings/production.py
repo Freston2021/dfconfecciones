@@ -25,6 +25,9 @@ CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
 
+ALLOWED_HOSTS = ['dfconfecciones.herokuapp.com']
+
+
 #STORAGE CONFIGURATION----------------------------------------------------------
 INSTALLED_APPS += ['gunicorn', 'storages', ]
 
@@ -71,17 +74,28 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 
 #DATABASE CONFIGURATION---------------------------------------------------------
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'def0956b3btq4f',
+#        'USER': 'nmjnmzwhjzqimy',
+#        'PASSWORD': 'b2c754a6c6dbeb65d5079178481c1c4570b7544d9c7fe4a5ac5000422b0971f7',
+#        'HOST': 'ec2-54-225-107-107.compute-1.amazonaws.com',
+#        'PORT': '5432',
+#    }
+#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'def0956b3btq4f',
-        'USER': 'nmjnmzwhjzqimy',
-        'PASSWORD': 'b2c754a6c6dbeb65d5079178481c1c4570b7544d9c7fe4a5ac5000422b0971f7',
-        'HOST': 'ec2-54-225-107-107.compute-1.amazonaws.com',
+        'NAME': 'dfihb1lvp6qp9k',
+        'USER': 'btvocdbcaidbla',
+        'PASSWORD': 'b9c8d202ddf236ddc72f314cb9ddd6388e9a96ce6838ff9e6a2e2627aca6f919',
+        'HOST': 'ec2-3-215-83-124.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
-
 
 #CACHING------------------------------------------------------------------------
 REDIS_LOCATION = '{0}/{1}'.format(env('REDIS_URL', default='redis://127.0.0.1:6379'), 0)
