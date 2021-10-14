@@ -87,16 +87,16 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 #    }
 #}
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'daysiweb',
-        'USER': 'eduardosilva',
-        'PASSWORD': 'Peluchin01',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'daysiweb',
+#        'USER': 'eduardosilva',
+#        'PASSWORD': 'Peluchin01',
+#        'HOST': '127.0.0.1',
+#        'PORT': '5432',
+#    }
+#}
 
 
 #CACHING------------------------------------------------------------------------
