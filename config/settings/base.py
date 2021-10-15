@@ -294,7 +294,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'test':
 #CKEDITOR_CONFIGS---------------------------------------------------------------
 CKEDITOR_CONFIGS = {
     'default': {
-        'skin': 'Kama',
+        'skin': 'kama',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
