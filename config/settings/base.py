@@ -59,19 +59,22 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'dfconfecciones.herokuapp.
 #MIDDLEWARE CONFIGURATION-------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 
 
 #DEBUG--------------------------------------------------------------------------
-DEBUG = False
+#DEBUG = False
+# https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = env.bool("DJANGO_DEBUG", False)
 
 
 #FIXTURE CONFIGURATION----------------------------------------------------------
@@ -152,26 +155,38 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 #STATIC FILE CONFIGURATION------------------------------------------------------
+#BASE_DIR devuelve la ruta base de la app
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print ("base dir path -->", BASE_DIR)
+#print ("base dir path -->", BASE_DIR)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-print ("Media Root path -->", MEDIA_ROOT)
+#MEDIA_ROOT es la carpeta donde irán los archivos cargados usando FileField.
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+#print ("Media Root path -->", MEDIA_ROOT)
 
 MEDIA_URL = '/media/'
-print ("Media Url path -->", MEDIA_URL)
+#print ("Media Url path -->", MEDIA_URL)
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-print ("Static Root path -->", STATIC_ROOT)
+#STATIC_ROOT es la carpeta donde se almacenarán los archivos estáticos,
+#después de usar manage.py collectstatic.
+#STATIC_ROOT solo se requiere para la implementación, mientras esta en
+#desarrollo, Django busca archivos estáticos dentro del directorio de cada aplicación.
+#Esta es la magia realizada por manage.py runserver cuando DEBUG=True.
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+#print ("Static Root path -->", STATIC_ROOT)
 
 STATIC_URL = '/static/'
-print ("Static Url path -->", STATIC_URL)
+#print ("Static Url path -->", STATIC_URL)
 
+#STATICFILES_DIRS es la lista de carpetas donde Django buscará archivos estáticos
+#adicionales además de la carpeta static de cada aplicación instalada.
+#Esta configuración define las ubicaciones adicionales que atravesará la aplicación
+#staticfiles si el FileSystemFinder Finder está habilitado, p. si usa el comando de
+#administración collectstatic o findstatic o usa la vista de publicación de
+#archivos estáticos.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
 )
-
-print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
+#print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -321,3 +336,7 @@ CKEDITOR_CONFIGS = {
             ]),
     }
 }
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
