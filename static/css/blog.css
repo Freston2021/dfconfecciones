@@ -1625,7 +1625,7 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
 
 .page-header {
         font-family: 'Slabo 14px', serif;
-        font-size: 18pt;
+        font-size: 14pt;
         color: white;
         position: center;
         margin-top: 10px;
@@ -1634,10 +1634,11 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
     }
 
 .galeriatitulo {font-family: 'Playfair Display', cursive;
+          font-size: 16pt;
 					color: white;
         }
 
-.titulogaleria{font-size: 14pt;
+.titulogaleria{font-size: 16pt;
 
  				text-decoration: none;
         }
@@ -1943,6 +1944,7 @@ a.btn.btn-default {
 .acercademi h1{font-family: 'Carolina', cursive;
                 }
 .acercademi h3{font-family: 'Satisfy', serif;
+               text-align: center;
                 color: #d3d3d3;
 
                padding-left:2em;
