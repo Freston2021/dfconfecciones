@@ -187,7 +187,7 @@ STATICFILES_DIRS = (
 )
 #print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
