@@ -53,5 +53,45 @@ DEBUG_TOOLBAR_CONFIG = {
 INSTALLED_APPS += ['django_extensions']
 
 
+#STATIC FILE CONFIGURATION------------------------------------------------------
+#BASE_DIR devuelve la ruta base de la app
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#print ("base dir path -->", BASE_DIR)
+
+#MEDIA_ROOT es la carpeta donde irán los archivos cargados usando FileField.
+#MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "live-static", "media-root")
+
+#print ("Media Root path -->", MEDIA_ROOT)
+
+MEDIA_URL = '/media/'
+#print ("Media Url path -->", MEDIA_URL)
+
+#STATIC_ROOT es la carpeta donde se almacenarán los archivos estáticos,
+#después de usar manage.py collectstatic.
+#STATIC_ROOT solo se requiere para la implementación, mientras esta en
+#desarrollo, Django busca archivos estáticos dentro del directorio de cada aplicación.
+#Esta es la magia realizada por manage.py runserver cuando DEBUG=True.
+#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join(BASE_DIR, "live-static", "static-root")
+
+#print ("Static Root path -->", STATIC_ROOT)
+
+STATIC_URL = '/static/'
+#print ("Static Url path -->", STATIC_URL)
+
+#STATICFILES_DIRS es la lista de carpetas donde Django buscará archivos estáticos
+#adicionales además de la carpeta static de cada aplicación instalada.
+#Esta configuración define las ubicaciones adicionales que atravesará la aplicación
+#staticfiles si el FileSystemFinder Finder está habilitado, p. si usa el comando de
+#administración collectstatic o findstatic o usa la vista de publicación de
+#archivos estáticos.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+#print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
+
+
+
 #TESTING------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
