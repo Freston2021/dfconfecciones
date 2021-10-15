@@ -73,18 +73,6 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 
 #DATABASE CONFIGURATION---------------------------------------------------------
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'def0956b3btq4f',
-#        'USER': 'nmjnmzwhjzqimy',
-#        'PASSWORD': 'b2c754a6c6dbeb65d5079178481c1c4570b7544d9c7fe4a5ac5000422b0971f7',
-#        'HOST': 'ec2-54-225-107-107.compute-1.amazonaws.com',
-#        'PORT': '5432',
-#    }
-#}
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

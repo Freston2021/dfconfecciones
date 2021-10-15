@@ -159,9 +159,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 #print ("base dir path -->", BASE_DIR)
 
 #MEDIA_ROOT es la carpeta donde irán los archivos cargados usando FileField.
-#MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
-MEDIA_ROOT = os.path.join(BASE_DIR, "live-static", "media-root")
-
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 #print ("Media Root path -->", MEDIA_ROOT)
 
 MEDIA_URL = '/media/'
@@ -172,9 +170,7 @@ MEDIA_URL = '/media/'
 #STATIC_ROOT solo se requiere para la implementación, mientras esta en
 #desarrollo, Django busca archivos estáticos dentro del directorio de cada aplicación.
 #Esta es la magia realizada por manage.py runserver cuando DEBUG=True.
-#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-STATIC_ROOT = os.path.join(BASE_DIR, "live-static", "static-root")
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 #print ("Static Root path -->", STATIC_ROOT)
 
 STATIC_URL = '/static/'
@@ -187,9 +183,10 @@ STATIC_URL = '/static/'
 #administración collectstatic o findstatic o usa la vista de publicación de
 #archivos estáticos.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 #print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ------------------------------------------------------------------------------
