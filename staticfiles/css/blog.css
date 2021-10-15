@@ -1445,11 +1445,11 @@ table#change-history t th {
 .menu h4 {
 	color: #F4F5E8 ;
           font-family: 'Bree Serif', serif;
-          font-size: 14pt;
+          font-size: 16pt;
           }
 
 .menu h4:hover {
-	color: #ff6900;
+	color: #FF5733;
           }
 
 .menus{display: none;}
@@ -1533,6 +1533,9 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
       /*color: #d0e3dc;*/
         }
 
+ .posta h1:hover {
+      color: #FF5733;
+        }
 
 .nohay {color: white;}
 
