@@ -1497,22 +1497,23 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
     }
 
 .post h4 {
-        font-family: 'Droid Serif', serif;
-        font-size: 20px;;
+        font-family: 'Bree';
+        font-size: 22px;;
           }
 
 
 
 .posta{
-  /*margin: left 200px;*/
 }
 
-  .posta h1 {
-    font-family: 'Droid Serif', serif;
-      font-size: 25px;;
+  .posta h4 {
+    margin-left: -20px;
+    color: white;
+    font-family: 'Bree Serif', serif;
+      font-size: 24px;;
         }
 
- .posta h1:hover {
+ .posta h4:hover {
       color: #FF5733;
         }
 
