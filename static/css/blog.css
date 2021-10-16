@@ -1492,35 +1492,24 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
 /*##########POST##########*/
 .post {
         color: white;
-        width: 100%;
- 		    height: auto;
-        font-size: 15px;
-        /*border: 1px solid blue;*/
         display: inline-block;
         position: relative;
-      /*text-align:justify;*/
-      /*text-justify:inter-word;*/
-        font-family: 'Droid Serif', serif;
     }
 
-    .post h1 a, .post h1 a:visited {
-      font-size: 22px;
-      /*font-family: 'Baloo Bhaina', cursive;*/
-      font-family: 'Droid Serif', serif;
-      /*font-family: 'Bree Serif', serif;*/
-      /*color: #d0e3dc;*/
-        }
+.post h4 {
+        font-family: 'Droid Serif', serif;
+        font-size: 20px;;
+          }
+
+
+
 .posta{
-  margin: left 200px;
+  /*margin: left 200px;*/
 }
 
- .posta h1 a, .posta h1 a:visited {
-
-      font-size: 25px;
-      /*font-family: 'Baloo Bhaina', cursive;*/
-      font-family: 'Droid Serif', serif;
-      /*font-family: 'Bree Serif', serif;*/
-      /*color: #d0e3dc;*/
+  .posta h1 {
+    font-family: 'Droid Serif', serif;
+      font-size: 25px;;
         }
 
  .posta h1:hover {
@@ -1907,6 +1896,7 @@ td {
 }
 
 a.btn.btn-default {
+  color: black;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -1965,3 +1955,10 @@ a.btn.btn-default {
                 text-align: right;
         			  */
         			}
+
+/*+ Photologue*/
+.text-center {
+  font-family: 'Slabo', serif;
+  font-size: 10pt;
+  color: black;
+}
