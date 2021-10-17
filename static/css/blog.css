@@ -1496,7 +1496,8 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
 
 .post h4 {
         font-family: 'Roboto', sans-serif;
-        font-size: 22px;;
+        font-size: 22px;
+        position: absolute;
           }
 
 .posta{
@@ -1507,7 +1508,7 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
     margin: auto;
     color: white;
     font-family: 'Roboto', sans-serif;
-      font-size: 24px;;
+      font-size: 24px;
         }
 
 .nohay {color: white;}
