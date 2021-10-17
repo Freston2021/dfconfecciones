@@ -1496,13 +1496,9 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
 
 .post h4 {
         display:inline-block;
-        margin: auto;
-        text-align: justify;
         font-family: 'Roboto', sans-serif;
         font-size: 22px;;
           }
-
-
 
 .posta{
 }
@@ -1928,8 +1924,9 @@ a.btn.btn-default {
 .acercademi h3{font-family: 'Satisfy', serif;
               margin: auto;
               display: inline-block;
-               text-align: justify;
-                color: #d3d3d3;
+              text-align: justify;
+              color: #d3d3d3;
+              padding: 1em;
 
                /*text-align: justify;*/
                text-decoration: none;}
