@@ -1919,7 +1919,7 @@ a.btn.btn-default {
 
 /*######ACERCA DE MI###########*/
 .acercademi h1{font-family: 'Carolina', cursive;
-               margin-left: 15px;
+               margin-left: 20px;
                 }
 .acercademi h3{font-family: 'Satisfy', serif;
               margin: auto;
@@ -1927,7 +1927,7 @@ a.btn.btn-default {
               text-align: justify;
               color: #d3d3d3;
               padding: 1em;
-              Word-spacing:-2px;
+              text-justify: distribute;
 
                /*text-align: justify;*/
                text-decoration: none;}
@@ -1942,7 +1942,7 @@ a.btn.btn-default {
 .fotodaysi img {
                 width: 10%;
                 /*display:inline-grid;*/
-                margin-left: 15px;
+                margin-left: 22px;
                 margin: bottom: 0px;
                 /*background-size: 350px*/
                 /*right: -72px;
