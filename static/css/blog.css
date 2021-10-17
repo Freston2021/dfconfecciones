@@ -1924,10 +1924,11 @@ a.btn.btn-default {
 .acercademi h3{font-family: 'Satisfy', serif;
               margin: auto;
               display: inline-block;
-              text-align: justify;
               color: #d3d3d3;
               padding: 1em;
+              text-align: justify;
               text-justify: distribute;
+              text-align-last: left;
 
                /*text-align: justify;*/
                text-decoration: none;}
