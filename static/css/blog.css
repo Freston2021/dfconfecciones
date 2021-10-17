@@ -1927,7 +1927,7 @@ a.btn.btn-default {
               text-align: justify;
               color: #d3d3d3;
               padding: 1em;
-              hyphens: auto;
+              Word-spacing:-2px;
 
                /*text-align: justify;*/
                text-decoration: none;}
