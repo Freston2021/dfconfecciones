@@ -1507,14 +1507,11 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
 }
 
   .posta h4 {
-    margin-left: -20px;
+    display:inline-block;
+    margin: auto;
     color: white;
-    font-family: 'Bree Serif', serif;
+    font-family: 'Roboto', sans-serif;
       font-size: 24px;;
-        }
-
- .posta h4:hover {
-      color: #FF5733;
         }
 
 .nohay {color: white;}

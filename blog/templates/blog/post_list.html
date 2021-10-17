@@ -11,14 +11,14 @@
           <!--  <h1><p>{{ post.text|safe|linebreaks }}</p></h1>-->
            <div class="posta">
              <br>
-             <a class="nav-link" href="/photologue/#menu"><h4>{{ post.title }}</h4></a>
+             <a><h4>{{ post.title }}</h4></a>
+         <br>
          <br>
          <!--<h4><a>Instituciones, Industrias, Corporaciones, Hoteleria, Gastronomia, Campañas publicitarias...</a></h4>-->
          </div>
 
          <div class="post">
               <h4>{{ post.text|safe }}</h4>
-              <br>
                 </div>
         <!--div class="post">
           <a class="comentarios" href="{% url 'post_detail' pk=post.pk %}#menu">Comentarios: {{ post.approved_comments.count }}</a>
@@ -30,37 +30,38 @@
 <!-- SLIDESHOW -->
 <div class="col-md-4 slideshow-container">
 
-  <div class="mySlides fade">
+<div class="mySlides fade">
     <div class="numbertext">1 / 5</div>
-    <img src="{% static 'imagenes/img4.png' %}" style="width:100%">
+    <a href="/photologue/#menu"><img src="{% static 'imagenes/img4.png' %}" style="width:100%"></a>
     <div class="text">Industria</div>
   </div>
 
+
 <div class="mySlides fade">
   <div class="numbertext">2 / 5</div>
-  <img src="{% static 'imagenes/img1.png' %}" style="width:100%">
+  <a href="/photologue/#menu"><img src="{% static 'imagenes/img1.png' %}" style="width:100%"></a>
   <div class="text">Instituciones</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">3 / 5</div>
-  <img src="{% static 'imagenes/img2.png' %}" style="width:100%">
+  <a href="/photologue/#menu"><img src="{% static 'imagenes/img2.png' %}" style="width:100%"></a>
   <div class="text">Salud</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">4 / 5</div>
-  <img src="{% static 'imagenes/img3.png' %}" style="width:100%">
+  <a href="/photologue/#menu"><img src="{% static 'imagenes/img3.png' %}" style="width:100%"></a>
   <div class="text">Uniformes Deportivos</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">5 / 5</div>
-  <img src="{% static 'imagenes/img5.png' %}" style="width:100%">
+  <a href="/photologue/#menu"><img src="{% static 'imagenes/img5.png' %}" style="width:100%"></a>
   <div class="text">Bolsas Ecológicas</div>
 </div>
 
-
+</div>
 </div>
 <!--<br>-->
 
