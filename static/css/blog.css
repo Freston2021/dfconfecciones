@@ -1492,13 +1492,12 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
 /*##########POST##########*/
 .post {
         color: white;
-        display: inline-block;
-        position: relative;
     }
 
 .post h4 {
         display:inline-block;
         margin: auto;
+        text-align: justify;
         font-family: 'Roboto', sans-serif;
         font-size: 22px;;
           }
@@ -1927,11 +1926,11 @@ a.btn.btn-default {
 .acercademi h1{font-family: 'Carolina', cursive;
                 }
 .acercademi h3{font-family: 'Satisfy', serif;
+              margin: auto;
               display: inline-block;
                text-align: justify;
                 color: #d3d3d3;
 
-               padding-left:2em;
                /*text-align: justify;*/
                text-decoration: none;}
 .acercademi p{margin-top: 10px;
