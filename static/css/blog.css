@@ -1932,6 +1932,7 @@ a.btn.btn-default {
               text-align: justify;
               text-justify: distribute;
               text-align-last: left;
+              text-indent: 20px;
 
                /*text-align: justify;*/
                text-decoration: none;}
