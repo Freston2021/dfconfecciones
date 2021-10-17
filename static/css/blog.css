@@ -1495,7 +1495,6 @@ hr {border: 3px solid #818fa5; border-radius: 300px/10px; height: 0px; text-alig
     }
 
 .post h4 {
-        display:inline-block;
         font-family: 'Roboto', sans-serif;
         font-size: 22px;;
           }
@@ -1920,6 +1919,7 @@ a.btn.btn-default {
 
 /*######ACERCA DE MI###########*/
 .acercademi h1{font-family: 'Carolina', cursive;
+               margin-left: 15px;
                 }
 .acercademi h3{font-family: 'Satisfy', serif;
               margin: auto;
@@ -1927,11 +1927,12 @@ a.btn.btn-default {
               text-align: justify;
               color: #d3d3d3;
               padding: 1em;
+              hyphens: auto;
 
                /*text-align: justify;*/
                text-decoration: none;}
 .acercademi p{margin-top: 10px;
-              margin-left: 5px;
+              margin-left: 10px;
               font-family: 'Arial', cursive;
               font-size: 10pt;
               color: white;
@@ -1941,7 +1942,7 @@ a.btn.btn-default {
 .fotodaysi img {
                 width: 10%;
                 /*display:inline-grid;*/
-                margin-left: 10px;
+                margin-left: 15px;
                 margin: bottom: 0px;
                 /*background-size: 350px*/
                 /*right: -72px;
