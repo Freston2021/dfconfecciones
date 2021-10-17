@@ -26,7 +26,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
+    'noise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.admin',
 ]
@@ -173,7 +173,7 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 #print ("Static Root path -->", STATIC_ROOT)
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 #print ("Static Url path -->", STATIC_URL)
 
 #STATICFILES_DIRS es la lista de carpetas donde Django buscará archivos estáticos
@@ -187,7 +187,10 @@ STATICFILES_DIRS = (
 )
 #print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
+#whitenoise#####################################################################
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
+STATIC_URL = STATIC_HOST + '/static/'
 
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
