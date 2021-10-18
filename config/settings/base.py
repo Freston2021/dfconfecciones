@@ -240,56 +240,72 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 ADMIN_URL = r'^admin/'
 
 
-#Your common stuff: Below this line define 3rd party library settings-----------
 #LOGGING CONFIGURATION----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-
-    "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+    'version': 1,
+    'disable_existing_loggers': False,
+    # Formatting of messages.
+    'formatters': {
+        # Don't need to show the time when logging to console.
+        'console': {
+            'format': '%(levelname)s %(name)s.%(funcName)s (%(lineno)d) %(message)s'
         }
     },
-
-    "handlers": {
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        }
+    # The handlers decide what we should do with a logging message - do we email
+    # it, ditch it, or write it to a file?
+    'handlers': {
+        # Writing to console. Use only in dev.
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        # Send logs to /dev/null.
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
     },
 
-    "root": {
-        "level": "INFO",
-        "handlers": ["console"],
-    },
-
-    "null": {
-        "level": "DEBUG",
-        "class": "logging.NullHandler",
-    },
-
-    "loggers": {
+    # Loggers decide what is logged.
+    'loggers': {
         '': {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
+            # Default (suitable for dev) is to log to console.
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         },
         'photologue': {
+            # Default (suitable for dev) is to log to console.
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False,
         },
+        # logging of SQL statements. Default is to ditch them (send them to
+        # null). Note that this logger only works if DEBUG = True.
         'django.db.backends': {
-            'handlers': ['console'],
+            'handlers': ['null'],
             'level': 'DEBUG',
             'propagate': False,
         },
     }
 }
 
+
+# Don't display logging messages to console during unit test runs.
 if len(sys.argv) > 1 and sys.argv[1] == 'test':
     LOGGING['loggers']['']['handlers'] = ['null']
     LOGGING['loggers']['photologue']['handlers'] = ['null']
