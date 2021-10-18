@@ -192,6 +192,7 @@ STATICFILES_DIRS = (
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
 
+
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
 
