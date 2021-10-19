@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import environ
 import sys
 import os
+import django_heroku
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = environ.Path(__file__) - 3
@@ -63,10 +64,14 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 #MIDDLEWARE CONFIGURATION-------------------------------------------------------
+MIDDLEWARE_CLASSES = (
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',)
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,6 +79,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 
 #DEBUG--------------------------------------------------------------------------
@@ -169,14 +176,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 #print ("Media Root path -->", MEDIA_ROOT)
 
 MEDIA_URL = '/media/'
-print ("Media Url path -->", MEDIA_URL)
+#print ("Media Url path -->", MEDIA_URL)
 
 #STATIC_ROOT es la carpeta donde se almacenarán los archivos estáticos,
 #después de usar manage.py collectstatic.
 #STATIC_ROOT solo se requiere para la implementación, mientras esta en
 #desarrollo, Django busca archivos estáticos dentro del directorio de cada aplicación.
 #Esta es la magia realizada por manage.py runserver cuando DEBUG=True.
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #print ("Static Root path -->", STATIC_ROOT)
 
 #STATIC_URL = '/static/'
@@ -373,3 +380,6 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+# Activate Django-Heroku.
+django_heroku.base(locals())
