@@ -78,8 +78,6 @@ MIDDLEWARE = [
 ]
 
 
-
-
 #DEBUG--------------------------------------------------------------------------
 #DEBUG = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -199,6 +197,7 @@ STATICFILES_DIRS = (
 
 #whitenoise#####################################################################
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
 
@@ -378,6 +377,3 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
-
-# Activate Django-Heroku.
-#django_heroku.base(locals())
