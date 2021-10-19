@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import environ
 import sys
 import os
-import django_heroku
+#import django_heroku
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = environ.Path(__file__) - 3
@@ -382,4 +382,4 @@ sentry_sdk.init(
 )
 
 # Activate Django-Heroku.
-django_heroku.base(locals())
+#django_heroku.base(locals())
