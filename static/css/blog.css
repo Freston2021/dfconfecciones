@@ -374,7 +374,8 @@ template {
 
 
 body {/*background-color: black; */
-      background-image: url("/static/imagenes/Imagen-de-fondo.jpg");
+      /*background-image: url("/static/imagenes/Imagen-de-fondo.jpg");*/
+      background-image: url('../imagenes/Imagen-de-fondo.jpg');
       height: 100vh;
     	}
 
