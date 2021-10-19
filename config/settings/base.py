@@ -169,7 +169,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 #print ("Media Root path -->", MEDIA_ROOT)
 
 MEDIA_URL = '/media/'
-#print ("Media Url path -->", MEDIA_URL)
+print ("Media Url path -->", MEDIA_URL)
 
 #STATIC_ROOT es la carpeta donde se almacenarán los archivos estáticos,
 #después de usar manage.py collectstatic.
