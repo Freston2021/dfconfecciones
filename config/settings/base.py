@@ -45,6 +45,7 @@ LOCAL_APPS = [
     'sortedm2m',
     'contact_form',
     'ckeditor',
+    'corsheaders',
 ]
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -55,9 +56,15 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 #SITE CONFIGURATION-------------------------------------------------------------
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'dfconfecciones.herokuapp.com']
 
+CORS_ALLOWED_ORIGINS = [
+    "https://dfconfecciones.herokuapp.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:9000",
+]
 
 #MIDDLEWARE CONFIGURATION-------------------------------------------------------
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,7 +73,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 
@@ -188,7 +194,7 @@ STATICFILES_DIRS = (
 #print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
 #whitenoise#####################################################################
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
 
@@ -241,18 +247,6 @@ ADMIN_URL = r'^admin/'
 
 
 #LOGGING CONFIGURATION----------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
 
 LOGGING = {
     'version': 1,
@@ -365,3 +359,18 @@ CKEDITOR_CONFIGS = {
             ]),
     }
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+#SENTRY_SDK---------------------------------------------------------------------
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://examplePublicKey@o0.ingest.sentry.io/0",
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)

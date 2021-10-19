@@ -11,12 +11,16 @@ from django.views import defaults as default_views
 
 from django.contrib.auth import views
 
+from django.contrib.auth import views
+from django.urls import path
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
-    url(r'^account/login/$', views.login, name='login'),
-    url(r'^account/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
-    ]
+    path('account/login/', views.LoginView.as_view(), name='login'),
+    path('account/logout/', views.LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
+]
+
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     #url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 

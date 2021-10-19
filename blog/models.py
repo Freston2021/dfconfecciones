@@ -7,10 +7,12 @@ from ckeditor.fields import RichTextField
 
 
 class Post(models.Model):
-    author = models.ForeignKey('User')
+    #author = models.ForeignKey('User', on_delete=models.CASCADE)
     #author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    text = RichTextField()
+    #text = RichTextField()
+    text = models.TextField()
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
@@ -27,7 +29,8 @@ class Post(models.Model):
         return self.title
 
 class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', related_name='comments')
+    #post = models.ForeignKey('blog.Post', related_name='comments')
+    post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='comments')
     Nombre = models.CharField(max_length=200)
     Texto = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -45,11 +48,10 @@ class Comment(models.Model):
 #agregado
 
 from django.contrib.auth.models import AbstractUser
-from django.core.urlresolvers import reverse
-from django.utils.encoding import python_2_unicode_compatible
+#from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-@python_2_unicode_compatible
 class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns

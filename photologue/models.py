@@ -1,39 +1,34 @@
+import logging
+import unicodedata
+from datetime import datetime
+from importlib import import_module
+from inspect import isclass
+
+import exifread
 import os
 import random
-from datetime import datetime
-from inspect import isclass
-import logging
-from io import BytesIO
-from importlib import import_module
-import exifread
-import unicodedata
 from PIL import Image, ImageFile, ImageFilter, ImageEnhance
-
-from django.utils.timezone import now
-from django.db import models
-from django.db.models.signals import post_save
 from django.conf import settings
+from django.contrib.sites.models import Site
+from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ValidationError
-from django.template.defaultfilters import slugify
-from django.utils.encoding import force_text, smart_str, filepath_to_uri
-from django.utils.functional import curry
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import python_2_unicode_compatible
 from django.core.validators import RegexValidator
-from django.contrib.sites.models import Site
-from django import forms
-from ckeditor.widgets import CKEditorWidget
-from ckeditor.fields import RichTextField
+from django.db import models
+from django.db.models.signals import post_save
+from django.template.defaultfilters import slugify
+from django.urls import reverse
+from django.utils.encoding import force_str, smart_str, filepath_to_uri
+from django.utils.safestring import mark_safe
+from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
+from functools import partial
+from io import BytesIO
 
 from sortedm2m.fields import SortedManyToManyField
-
+from .managers import GalleryQuerySet, PhotoQuerySet
 from .utils.reflection import add_reflection
 from .utils.watermark import apply_watermark
-from .managers import GalleryQuerySet, PhotoQuerySet
-
 
 logger = logging.getLogger('photologue.models')
 
@@ -68,7 +63,7 @@ if PHOTOLOGUE_PATH is not None:
         get_storage_path = getattr(module, parts[-1])
 else:
     def get_storage_path(instance, filename):
-        fn = unicodedata.normalize('NFKD', force_text(filename)).encode('ascii', 'ignore').decode('ascii')
+        fn = unicodedata.normalize('NFKD', force_str(filename)).encode('ascii', 'ignore').decode('ascii')
         return os.path.join(PHOTOLOGUE_DIR, 'photos', fn)
 
 # Support CACHEDIR.TAG spec for backups for ignoring cache dir.
@@ -76,7 +71,7 @@ else:
 PHOTOLOGUE_CACHEDIRTAG = os.path.join(PHOTOLOGUE_DIR, "photos", "cache", "CACHEDIR.TAG")
 if not default_storage.exists(PHOTOLOGUE_CACHEDIRTAG):
     default_storage.save(PHOTOLOGUE_CACHEDIRTAG, ContentFile(
-        "Signature: 8a477f597d28d172789f06886806bc55"))
+        b"Signature: 8a477f597d28d172789f06886806bc55"))
 
 # Exif Orientation values
 # Value 0thRow	0thColumn
@@ -146,7 +141,6 @@ size_method_map = {}
 
 
 class TagField(models.CharField):
-
     """Tags have been removed from Photologue, but the migrations still refer to them so this
     Tagfield definition is left here.
     """
@@ -154,13 +148,12 @@ class TagField(models.CharField):
     def __init__(self, **kwargs):
         default_kwargs = {'max_length': 255, 'blank': True}
         default_kwargs.update(kwargs)
-        super(TagField, self).__init__(**default_kwargs)
+        super().__init__(**default_kwargs)
 
     def get_internal_type(self):
         return 'CharField'
 
 
-@python_2_unicode_compatible
 class Gallery(models.Model):
     date_added = models.DateTimeField(_('date published'),
                                       default=now)
@@ -181,7 +174,7 @@ class Gallery(models.Model):
                                    related_name='galleries',
                                    verbose_name=_('photos'),
                                    blank=True)
-    sites = models.ManyToManyField(Site, verbose_name=_(u'sites'),
+    sites = models.ManyToManyField(Site, verbose_name=_('sites'),
                                    blank=True)
 
     objects = GalleryQuerySet.as_manager()
@@ -227,6 +220,7 @@ class Gallery(models.Model):
             return self.public().count()
         else:
             return self.photos.filter(sites__id=settings.SITE_ID).count()
+
     photo_count.short_description = _('count')
 
     def public(self):
@@ -238,8 +232,8 @@ class Gallery(models.Model):
         Return all photos that belong to this gallery but don't share the
         gallery's site.
         """
-        return self.photos.filter(is_public=True)\
-                          .exclude(sites__id__in=self.sites.all())
+        return self.photos.filter(is_public=True) \
+            .exclude(sites__id__in=self.sites.all())
 
 
 class ImageModel(models.Model):
@@ -262,7 +256,8 @@ class ImageModel(models.Model):
                                null=True,
                                blank=True,
                                related_name="%(class)s_related",
-                               verbose_name=_('effect'))
+                               verbose_name=_('effect'),
+                               on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
@@ -284,11 +279,10 @@ class ImageModel(models.Model):
             return _('An "admin_thumbnail" photo size has not been defined.')
         else:
             if hasattr(self, 'get_absolute_url'):
-                return u'<a href="%s"><img src="%s"></a>' % \
-                    (self.get_absolute_url(), func())
+                return mark_safe('<a href="{}"><img src="{}"></a>'.format(self.get_absolute_url(), func()))
             else:
-                return u'<a href="%s"><img src="%s"></a>' % \
-                    (self.image.url, func())
+                return mark_safe('<a href="{}"><img src="{}"></a>'.format(self.image.url, func()))
+
     admin_thumbnail.short_description = _('Thumbnail')
     admin_thumbnail.allow_tags = True
 
@@ -299,7 +293,7 @@ class ImageModel(models.Model):
         return '/'.join([os.path.dirname(self.image.url), "cache"])
 
     def image_filename(self):
-        return os.path.basename(force_text(self.image.name))
+        return os.path.basename(force_str(self.image.name))
 
     def _get_filename_for_size(self, size):
         size = getattr(size, 'name', size)
@@ -313,8 +307,11 @@ class ImageModel(models.Model):
         photosize = PhotoSizeCache().sizes.get(size)
         if not self.size_exists(photosize):
             self.create_size(photosize)
-        return Image.open(self.image.storage.open(
-            self._get_SIZE_filename(size))).size
+        try:
+            return Image.open(self.image.storage.open(
+                self._get_SIZE_filename(size))).size
+        except:
+            return None
 
     def _get_SIZE_url(self, size):
         photosize = PhotoSizeCache().sizes.get(size)
@@ -341,7 +338,7 @@ class ImageModel(models.Model):
             init_size_method_map()
         di = size_method_map.get(name, None)
         if di is not None:
-            result = curry(getattr(self, di['base_name']), di['size'])
+            result = partial(getattr(self, di['base_name']), di['size'])
             setattr(self, name, result)
             return result
         else:
@@ -390,18 +387,18 @@ class ImageModel(models.Model):
             new_dimensions = (int(round(cur_width * ratio)),
                               int(round(cur_height * ratio)))
             if new_dimensions[0] > cur_width or \
-               new_dimensions[1] > cur_height:
+                    new_dimensions[1] > cur_height:
                 if not photosize.upscale:
                     return im
             im = im.resize(new_dimensions, Image.ANTIALIAS)
         return im
 
-    def create_size(self, photosize):
-        if self.size_exists(photosize):
+    def create_size(self, photosize, recreate=False):
+        if self.size_exists(photosize) and not recreate:
             return
         try:
             im = Image.open(self.image.storage.open(self.image.name))
-        except IOError:
+        except OSError:
             return
         # Save the original format
         im_format = im.format
@@ -416,7 +413,7 @@ class ImageModel(models.Model):
             im = im.transpose(
                 IMAGE_EXIF_ORIENTATION_MAP[self.EXIF().get('Image Orientation').values[0]])
         # Resize/crop image
-        if im.size != photosize.size and photosize.size != (0, 0):
+        if (im.size != photosize.size and photosize.size != (0, 0)) or recreate:
             im = self.resize_image(im, photosize)
         # Apply watermark if found
         if photosize.watermark is not None:
@@ -433,11 +430,14 @@ class ImageModel(models.Model):
             if im_format != 'JPEG':
                 im.save(buffer, im_format)
             else:
+                # Issue #182 - test fix from https://github.com/bashu/django-watermark/issues/31
+                if im.mode.endswith('A'):
+                    im = im.convert(im.mode[:-1])
                 im.save(buffer, 'JPEG', quality=int(photosize.quality),
                         optimize=True)
             buffer_contents = ContentFile(buffer.getvalue())
             self.image.storage.save(im_filename, buffer_contents)
-        except IOError as e:
+        except OSError as e:
             if self.image.storage.exists(im_filename):
                 self.image.storage.delete(im_filename)
             raise e
@@ -454,17 +454,20 @@ class ImageModel(models.Model):
         for photosize in cache.sizes.values():
             self.remove_size(photosize, False)
 
-    def pre_cache(self):
+    def pre_cache(self, recreate=False):
         cache = PhotoSizeCache()
+        if recreate:
+            self.clear_cache()
         for photosize in cache.sizes.values():
             if photosize.pre_cache:
-                self.create_size(photosize)
+                self.create_size(photosize, recreate)
 
     def __init__(self, *args, **kwargs):
-        super(ImageModel, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._old_image = self.image
 
     def save(self, *args, **kwargs):
+        recreate = kwargs.pop('recreate', False)
         image_has_changed = False
         if self._get_pk_val() and (self._old_image != self.image):
             image_has_changed = True
@@ -489,8 +492,8 @@ class ImageModel(models.Model):
                                                int(hour), int(minute), int(second))
             except:
                 logger.error('Failed to read EXIF DateTimeOriginal', exc_info=True)
-        super(ImageModel, self).save(*args, **kwargs)
-        self.pre_cache()
+        super().save(*args, **kwargs)
+        self.pre_cache(recreate)
 
     def delete(self):
         assert self._get_pk_val() is not None, \
@@ -502,11 +505,10 @@ class ImageModel(models.Model):
         # http://haineault.com/blog/147/
         # The data loss scenarios mentioned in the docs hopefully do not apply
         # to Photologue!
-        super(ImageModel, self).delete()
+        super().delete()
         self.image.storage.delete(self.image.name)
 
 
-@python_2_unicode_compatible
 class Photo(ImageModel):
     title = models.CharField(_('title'),
                              max_length=250,
@@ -515,16 +517,14 @@ class Photo(ImageModel):
                             unique=True,
                             max_length=250,
                             help_text=_('A "slug" is a unique URL-friendly title for an object.'))
-    caption = RichTextField(_('caption'),
-                            blank=True)
-    
-
+    caption = models.TextField(_('caption'),
+                               blank=True)
     date_added = models.DateTimeField(_('date added'),
                                       default=now)
     is_public = models.BooleanField(_('is public'),
                                     default=True,
                                     help_text=_('Public photographs will be displayed in the default views.'))
-    sites = models.ManyToManyField(Site, verbose_name=_(u'sites'),
+    sites = models.ManyToManyField(Site, verbose_name=_('sites'),
                                    blank=True)
 
     objects = PhotoQuerySet.as_manager()
@@ -539,9 +539,15 @@ class Photo(ImageModel):
         return self.title
 
     def save(self, *args, **kwargs):
+        # If crop_from or effect property has been changed on existing image,
+        # update kwargs to force image recreation in parent class
+        current = Photo.objects.get(pk=self.pk) if self.pk else None
+        if current and (current.crop_from != self.crop_from or current.effect != self.effect):
+            kwargs.update(recreate=True)
+
         if self.slug is None:
             self.slug = slugify(self.title)
-        super(Photo, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('photologue:pl-photo', args=[self.slug])
@@ -583,7 +589,6 @@ class Photo(ImageModel):
         return None
 
 
-@python_2_unicode_compatible
 class BaseEffect(models.Model):
     name = models.CharField(_('name'),
                             max_length=30,
@@ -598,25 +603,30 @@ class BaseEffect(models.Model):
         return os.path.join(PHOTOLOGUE_DIR, 'samples')
 
     def sample_url(self):
-        return settings.MEDIA_URL + '/'.join([PHOTOLOGUE_DIR, 'samples', '%s %s.jpg' % (self.name.lower(), 'sample')])
+        return settings.MEDIA_URL + '/'.join([PHOTOLOGUE_DIR, 'samples',
+                                              '{} {}.jpg'.format(self.name.lower(), 'sample')])
 
     def sample_filename(self):
-        return os.path.join(self.sample_dir(), '%s %s.jpg' % (self.name.lower(), 'sample'))
+        return os.path.join(self.sample_dir(), '{} {}.jpg'.format(self.name.lower(), 'sample'))
 
     def create_sample(self):
         try:
             im = Image.open(SAMPLE_IMAGE_PATH)
-        except IOError:
-            raise IOError(
+        except OSError:
+            raise OSError(
                 'Photologue was unable to open the sample image: %s.' % SAMPLE_IMAGE_PATH)
         im = self.process(im)
         buffer = BytesIO()
+        # Issue #182 - test fix from https://github.com/bashu/django-watermark/issues/31
+        if im.mode.endswith('A'):
+            im = im.convert(im.mode[:-1])
         im.save(buffer, 'JPEG', quality=90, optimize=True)
         buffer_contents = ContentFile(buffer.getvalue())
         default_storage.save(self.sample_filename(), buffer_contents)
 
     def admin_sample(self):
-        return u'<img src="%s">' % self.sample_url()
+        return '<img src="%s">' % self.sample_url()
+
     admin_sample.short_description = 'Sample'
     admin_sample.allow_tags = True
 
@@ -658,7 +668,6 @@ class BaseEffect(models.Model):
 
 
 class PhotoEffect(BaseEffect):
-
     """ A pre-defined effect to apply to photos """
     transpose_method = models.CharField(_('rotate or flip'),
                                         max_length=15,
@@ -745,8 +754,8 @@ class Watermark(BaseEffect):
 
     def delete(self):
         assert self._get_pk_val() is not None, "%s object can't be deleted because its %s attribute is set to None." \
-            % (self._meta.object_name, self._meta.pk.attname)
-        super(Watermark, self).delete()
+                                               % (self._meta.object_name, self._meta.pk.attname)
+        super().delete()
         self.image.storage.delete(self.image.name)
 
     def post_process(self, im):
@@ -754,9 +763,7 @@ class Watermark(BaseEffect):
         return apply_watermark(im, mark, self.style, self.opacity)
 
 
-@python_2_unicode_compatible
 class PhotoSize(models.Model):
-
     """About the Photosize name: it's used to create get_PHOTOSIZE_url() methods,
     so the name has to follow the same restrictions as any Python method name,
     e.g. no spaces or non-ascii characters."""
@@ -769,7 +776,7 @@ class PhotoSize(models.Model):
                                 '"thumbnail", "display", "small", "main_page_widget".'),
                             validators=[RegexValidator(regex='^[a-z0-9_]+$',
                                                        message='Use only plain lowercase letters (ASCII), numbers and '
-                                                       'underscores.'
+                                                               'underscores.'
                                                        )]
                             )
     width = models.PositiveIntegerField(_('width'),
@@ -779,7 +786,7 @@ class PhotoSize(models.Model):
     height = models.PositiveIntegerField(_('height'),
                                          default=0,
                                          help_text=_(
-        'If height is set to "0" the image will be scaled to the supplied width'))
+                                             'If height is set to "0" the image will be scaled to the supplied width'))
     quality = models.PositiveIntegerField(_('quality'),
                                           choices=JPEG_QUALITY_CHOICES,
                                           default=70,
@@ -805,12 +812,14 @@ class PhotoSize(models.Model):
                                null=True,
                                blank=True,
                                related_name='photo_sizes',
-                               verbose_name=_('photo effect'))
+                               verbose_name=_('photo effect'),
+                               on_delete=models.CASCADE)
     watermark = models.ForeignKey('photologue.Watermark',
                                   null=True,
                                   blank=True,
                                   related_name='photo_sizes',
-                                  verbose_name=_('watermark image'))
+                                  verbose_name=_('watermark image'),
+                                  on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['width', 'height']
@@ -835,25 +844,26 @@ class PhotoSize(models.Model):
                     _("Can only crop photos if both width and height dimensions are set."))
 
     def save(self, *args, **kwargs):
-        super(PhotoSize, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         PhotoSizeCache().reset()
         self.clear_cache()
 
     def delete(self):
         assert self._get_pk_val() is not None, "%s object can't be deleted because its %s attribute is set to None." \
-            % (self._meta.object_name, self._meta.pk.attname)
+                                               % (self._meta.object_name, self._meta.pk.attname)
         self.clear_cache()
-        super(PhotoSize, self).delete()
+        super().delete()
 
     def _get_size(self):
         return (self.width, self.height)
 
     def _set_size(self, value):
         self.width, self.height = value
+
     size = property(_get_size, _set_size)
 
 
-class PhotoSizeCache(object):
+class PhotoSizeCache:
     __state = {"sizes": {}}
 
     def __init__(self):
@@ -896,5 +906,7 @@ def add_default_site(instance, created, **kwargs):
     if instance.sites.exists():
         return
     instance.sites.add(Site.objects.get_current())
+
+
 post_save.connect(add_default_site, sender=Gallery)
 post_save.connect(add_default_site, sender=Photo)

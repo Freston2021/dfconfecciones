@@ -49,19 +49,8 @@ def apply_watermark(im, mark, position, opacity=1):
         w = int(mark.size[0] * ratio)
         h = int(mark.size[1] * ratio)
         mark = mark.resize((w, h))
-        layer.paste(mark, (round((im.size[0] - w) / 2), round((im.size[1] - h) / 2)))
+        layer.paste(mark, (int((im.size[0] - w) / 2), int((im.size[1] - h) / 2)))
     else:
         layer.paste(mark, position)
     # composite the watermark with the layer
     return Image.composite(layer, im, layer)
-
-
-def test():
-    im = Image.open('test.png')
-    mark = Image.open('overlay.png')
-    watermark(im, mark, 'tile', 0.5).show()
-    watermark(im, mark, 'scale', 1.0).show()
-    watermark(im, mark, (100, 100), 0.5).show()
-
-if __name__ == '__main__':
-    test()

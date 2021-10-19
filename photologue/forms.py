@@ -1,27 +1,18 @@
-import zipfile
-try:
-    from zipfile import BadZipFile
-except ImportError:
-    # Python 2.
-    from zipfile import BadZipfile as BadZipFile
 import logging
+import zipfile
+from zipfile import BadZipFile
+
 import os
-from io import BytesIO
-
-try:
-    import Image
-except ImportError:
-    from PIL import Image
-
-
+from PIL import Image
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
-from django.conf import settings
-from django.utils.encoding import force_text
-from django.template.defaultfilters import slugify
 from django.core.files.base import ContentFile
+from django.template.defaultfilters import slugify
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
+from io import BytesIO
 
 from .models import Gallery, Photo
 
@@ -80,7 +71,7 @@ class UploadZipForm(forms.Form):
         return title
 
     def clean(self):
-        cleaned_data = super(UploadZipForm, self).clean()
+        cleaned_data = super().clean()
         if not self['title'].errors:
             # If there's already an error in the title, no need to add another
             # error related to the same field.
@@ -100,7 +91,7 @@ class UploadZipForm(forms.Form):
             gallery = self.cleaned_data['gallery']
         else:
             logger.debug(
-                force_text('Creating new gallery "{0}".').format(self.cleaned_data['title']))
+                force_str('Creating new gallery "{0}".').format(self.cleaned_data['title']))
             gallery = Gallery.objects.create(title=self.cleaned_data['title'],
                                              slug=slugify(self.cleaned_data['title']),
                                              description=self.cleaned_data['description'],
@@ -108,14 +99,14 @@ class UploadZipForm(forms.Form):
             gallery.sites.add(current_site)
         for filename in sorted(zip.namelist()):
 
-            logger.debug('Reading file "{0}".'.format(filename))
+            logger.debug('Reading file "{}".'.format(filename))
 
             if filename.startswith('__') or filename.startswith('.'):
-                logger.debug('Ignoring file "{0}".'.format(filename))
+                logger.debug('Ignoring file "{}".'.format(filename))
                 continue
 
             if os.path.dirname(filename):
-                logger.warning('Ignoring file "{0}" as it is in a subfolder; all images should be in the top '
+                logger.warning('Ignoring file "{}" as it is in a subfolder; all images should be in the top '
                                'folder of the zip.'.format(filename))
                 if request:
                     messages.warning(request,
@@ -127,7 +118,7 @@ class UploadZipForm(forms.Form):
             data = zip.read(filename)
 
             if not len(data):
-                logger.debug('File "{0}" is empty.'.format(filename))
+                logger.debug('File "{}" is empty.'.format(filename))
                 continue
 
             photo_title_root = self.cleaned_data['title'] if self.cleaned_data['title'] else gallery.title
@@ -153,10 +144,10 @@ class UploadZipForm(forms.Form):
                 opened = Image.open(file)
                 opened.verify()
             except Exception:
-                # Pillow (or PIL) doesn't recognize it as an image.
+                # Pillow doesn't recognize it as an image.
                 # If a "bad" file is found we just skip it.
                 # But we do flag this both in the logs and to the user.
-                logger.error('Could not process file "{0}" in the .zip archive.'.format(
+                logger.error('Could not process file "{}" in the .zip archive.'.format(
                     filename))
                 if request:
                     messages.warning(request,

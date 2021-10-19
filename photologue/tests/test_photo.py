@@ -2,15 +2,17 @@
 
 import os
 import unittest
-
 from django import VERSION
 from django.conf import settings
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from ..models import Image, Photo, PHOTOLOGUE_DIR, PHOTOLOGUE_CACHEDIRTAG
+from django.core.files.storage import default_storage
+from io import BytesIO
+from unittest.mock import patch
+
 from .factories import LANDSCAPE_IMAGE_PATH, QUOTING_IMAGE_PATH, \
-    UNICODE_IMAGE_PATH, NONSENSE_IMAGE_PATH, GalleryFactory, PhotoFactory
+    UNICODE_IMAGE_PATH, NONSENSE_IMAGE_PATH, GalleryFactory, PhotoEffectFactory, PhotoFactory
 from .helpers import PhotologueBaseTest
+from ..models import Image, Photo, PHOTOLOGUE_DIR, PHOTOLOGUE_CACHEDIRTAG
 
 
 class PhotoTest(PhotologueBaseTest):
@@ -76,8 +78,7 @@ class PhotoTest(PhotologueBaseTest):
                          Image.open(self.pl.image.storage.open(
                              self.pl.get_testPhotoSize_filename())).size)
         self.assertEqual(self.pl.get_testPhotoSize_url(),
-                         self.pl.cache_url() + '/' +
-                         self.pl._get_filename_for_size(self.s))
+                         self.pl.cache_url() + '/' + self.pl._get_filename_for_size(self.s))
         self.assertEqual(self.pl.get_testPhotoSize_filename(),
                          os.path.join(self.pl.cache_path(),
                                       self.pl._get_filename_for_size(self.s)))
@@ -104,9 +105,28 @@ class PhotoTest(PhotologueBaseTest):
         self.pl2 = PhotoFactory(title='É',
                                 slug='é')
 
+    @patch('photologue.models.ImageModel.resize_image')
+    def test_update_crop_applied(self, mock_resize_image):
+        self.assertEqual(1, Photo.objects.count())
+        self.assertTrue(self.pl.crop_from != 'right')
+        self.pl.crop_from = 'right'
+        self.pl.save()
+        self.assertTrue(mock_resize_image.called)
+
+    @patch('photologue.models.ImageModel.resize_image')
+    @patch('photologue.models.PhotoEffect.pre_process')
+    @patch('photologue.models.PhotoEffect.post_process')
+    def test_update_effect_applied(self, mock_post_process, mock_pre_process, mock_resize_image):
+        self.assertEqual(1, Photo.objects.count())
+        self.assertIsNone(self.pl.effect)
+        self.pl.effect = PhotoEffectFactory()
+        self.pl.save()
+        self.assertTrue(mock_pre_process.called)
+        self.assertTrue(mock_resize_image.called)
+        self.assertTrue(mock_post_process.called)
+
 
 class PhotoManagerTest(PhotologueBaseTest):
-
     """Some tests for the methods on the Photo manager class."""
 
     def setUp(self):
@@ -127,7 +147,6 @@ class PhotoManagerTest(PhotologueBaseTest):
 
 
 class PreviousNextTest(PhotologueBaseTest):
-
     """Tests for the methods that provide the previous/next photos in a gallery."""
 
     def setUp(self):
@@ -222,13 +241,13 @@ class ImageModelTest(PhotologueBaseTest):
         super(ImageModelTest, self).setUp()
 
         # Unicode image has unicode in the path
-        #self.pu = TestPhoto(name='portrait')
+        # self.pu = TestPhoto(name='portrait')
         self.pu = PhotoFactory()
         self.pu.image.save(os.path.basename(UNICODE_IMAGE_PATH),
                            ContentFile(open(UNICODE_IMAGE_PATH, 'rb').read()))
 
         # Nonsense image contains nonsense
-        #self.pn = TestPhoto(name='portrait')
+        # self.pn = TestPhoto(name='portrait')
         self.pn = PhotoFactory()
         self.pn.image.save(os.path.basename(NONSENSE_IMAGE_PATH),
                            ContentFile(open(NONSENSE_IMAGE_PATH, 'rb').read()))
@@ -244,3 +263,32 @@ class ImageModelTest(PhotologueBaseTest):
     def test_create_size(self):
         """Nonsense image must not break scaling"""
         self.pn.create_size(self.s)
+
+
+def raw_image(mode='RGB', fmt='JPEG'):
+    """Create raw image.
+    """
+    data = BytesIO()
+    Image.new(mode, (100, 100)).save(data, fmt)
+    data.seek(0)
+    return data
+
+
+class ImageTransparencyTest(PhotologueBaseTest):
+
+    def setUp(self):
+        super(ImageTransparencyTest, self).setUp()
+        self.png = PhotoFactory()
+        self.png.image.save(
+            'trans.png', ContentFile(raw_image('RGBA', 'PNG').read()))
+
+    def tearDown(self):
+        super(ImageTransparencyTest, self).tearDown()
+        self.png.clear_cache()
+        os.unlink(os.path.join(settings.MEDIA_ROOT, self.png.image.path))
+
+    def test_create_size_png_keep_alpha_channel(self):
+        thumbnail = self.png.get_thumbnail_filename()
+        im = Image.open(
+            os.path.join(settings.MEDIA_ROOT, thumbnail))
+        self.assertEqual('RGBA', im.mode)
