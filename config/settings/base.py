@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 import environ
 import sys
 import os
-#import django_heroku
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = environ.Path(__file__) - 3
@@ -27,6 +26,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.admin',
 ]
@@ -64,14 +64,11 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 #MIDDLEWARE CONFIGURATION-------------------------------------------------------
-MIDDLEWARE_CLASSES = (
-    # Simplified static file serving.
-    # https://warehouse.python.org/project/whitenoise/
-    'whitenoise.middleware.WhiteNoiseMiddleware',)
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -183,7 +180,7 @@ MEDIA_URL = '/media/'
 #STATIC_ROOT solo se requiere para la implementación, mientras esta en
 #desarrollo, Django busca archivos estáticos dentro del directorio de cada aplicación.
 #Esta es la magia realizada por manage.py runserver cuando DEBUG=True.
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 #print ("Static Root path -->", STATIC_ROOT)
 
 #STATIC_URL = '/static/'
@@ -201,6 +198,7 @@ STATICFILES_DIRS = (
 #print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
 #whitenoise#####################################################################
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
 
