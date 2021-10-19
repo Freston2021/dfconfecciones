@@ -196,9 +196,10 @@ STATICFILES_DIRS = (
 #print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
 #whitenoise#####################################################################
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
-STATIC_URL = STATIC_HOST + '/static/'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
+#STATIC_URL = STATIC_HOST + '/static/'
+STATIC_URL = '/static/'
 
 
 # ------------------------------------------------------------------------------
