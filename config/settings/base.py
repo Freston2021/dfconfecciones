@@ -4,6 +4,7 @@ import environ
 import sys
 import os
 
+
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path('blog')
@@ -177,10 +178,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #print ("Static Root path -->", STATIC_ROOT)
 
 #whitenoise#####################################################################
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'dfconfecciones.storage.S3Storage'
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
+#STATIC_URL = '/static/'
 #print ("Static Url path -->", STATIC_URL)
 
 STATICFILES_DIRS = (
