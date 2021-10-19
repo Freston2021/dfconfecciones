@@ -1707,7 +1707,7 @@ hr.style8 {
     }
 .input {
         width : 80px;
-        margin: 50;
+        margin: 0;
         color: #e3ddd9;
         font-size: 20px;
         font-family: 'Arial', cursive;
