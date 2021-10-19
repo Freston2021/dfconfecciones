@@ -11,8 +11,8 @@ class Post(models.Model):
     #author = models.ForeignKey('auth.User')
     author = models.ForeignKey('User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    #text = RichTextField()
-    text = models.TextField()
+    text = RichTextField()
+    #text = models.TextField()
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
