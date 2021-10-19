@@ -3,7 +3,8 @@ from django.db import models
 #from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from hvad.models import TranslatableModel, TranslatedFields
+#from hvad.models import TranslatableModel, TranslatedFields
+from parler.models import TranslatableModel, TranslatedFields
 
 
 #@python_2_unicode_compatible

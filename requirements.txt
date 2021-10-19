@@ -37,6 +37,7 @@ django-hvad>=1.8.0
 django-js-asset>=1.2.2
 django-libs>=1.67.12
 django-model-utils>=2.6.1
+django-parler>=2.2.1
 django-phonenumber-field>=4.0.0
 django-photologue>=3.7
 django-redis>=4.7.0

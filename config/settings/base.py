@@ -46,6 +46,7 @@ LOCAL_APPS = [
     'contact_form',
     'ckeditor',
     'corsheaders',
+    'parler',
 ]
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
