@@ -178,6 +178,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #whitenoise#####################################################################
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
 #print ("Static Url path -->", STATIC_URL)
