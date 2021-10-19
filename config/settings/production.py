@@ -28,7 +28,7 @@ SECURE_REFERRER_POLICY = 'strict-origin'
 
 
 #STORAGE CONFIGURATION----------------------------------------------------------
-INSTALLED_APPS += ['gunicorn', 'storages', ]
+INSTALLED_APPS += ['gunicorn',]
 
 AWS_ACCESS_KEY_ID = env("DJANGO_AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env("DJANGO_AWS_SECRET_ACCESS_KEY")
