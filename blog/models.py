@@ -7,8 +7,6 @@ from ckeditor.fields import RichTextField
 
 
 class Post(models.Model):
-    #author = models.ForeignKey('User', on_delete=models.CASCADE)
-    #author = models.ForeignKey('auth.User')
     author = models.ForeignKey('User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = RichTextField()
