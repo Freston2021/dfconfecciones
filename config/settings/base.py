@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+from decouple import config
 
 import environ
 import sys
@@ -99,7 +100,6 @@ CONTACT_FORM_RECIPIENTS = (
     ('daysi fernandez', 'dfdtex@gmail.com'),
 )
 
-
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
@@ -112,14 +112,21 @@ MANAGERS = ADMINS
 #DATABASE CONFIGURATION--------------------------------------------------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'daysiweb',
-        'USER': 'eduardosilva',
-        'PASSWORD': 'Peluchin01',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'daysiweb',
+#        'USER': 'eduardosilva',
+#        'PASSWORD': 'Peluchin01',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
 
 
 #GENERAL CONFIGURATION----------------------------------------------------------

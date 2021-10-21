@@ -1,7 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from boto.s3.connection import OrdinaryCallingFormat
 from .base import *
-from .base import env
 
 
 #SECRET CONFIGURATION-----------------------------------------------------------
@@ -63,6 +62,11 @@ ANYMAIL = {
 }
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER =config('USER_MAIL')
+EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
+EMAIL_USE_TLS = True
 
 #TEMPLATE CONFIGURATION---------------------------------------------------------
 TEMPLATES[0]['OPTIONS']['loaders'] = [
@@ -74,7 +78,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 #DATABASE CONFIGURATION---------------------------------------------------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dfihb1lvp6qp9k',
         'USER': 'btvocdbcaidbla',
         'PASSWORD': 'b9c8d202ddf236ddc72f314cb9ddd6388e9a96ce6838ff9e6a2e2627aca6f919',
