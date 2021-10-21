@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from boto.s3.connection import OrdinaryCallingFormat
+#from decouple import config
 from .base import *
 
 
@@ -64,8 +65,8 @@ EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER =config('USER_MAIL')
-EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
+EMAIL_HOST_USER =env('USER_MAIL')
+EMAIL_HOST_PASSWORD = env('USER_MAIL_PASSWORD')
 EMAIL_USE_TLS = True
 
 #TEMPLATE CONFIGURATION---------------------------------------------------------
