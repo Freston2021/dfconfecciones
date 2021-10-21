@@ -74,7 +74,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 #DATABASE CONFIGURATION---------------------------------------------------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dfihb1lvp6qp9k',
         'USER': 'btvocdbcaidbla',
         'PASSWORD': 'b9c8d202ddf236ddc72f314cb9ddd6388e9a96ce6838ff9e6a2e2627aca6f919',

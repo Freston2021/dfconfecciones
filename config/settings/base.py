@@ -112,7 +112,7 @@ MANAGERS = ADMINS
 #DATABASE CONFIGURATION--------------------------------------------------------
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'daysiweb',
         'USER': 'eduardosilva',
         'PASSWORD': 'Peluchin01',
