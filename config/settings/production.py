@@ -46,13 +46,6 @@ MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #EMAIL--------------------------------------------------------------------------
-DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='PAGINAWEB <paginaweb@daysifernandez.com>')
-
-EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysiweb]')
-
-SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
-
 #Anymail with Mailgun
 INSTALLED_APPS += ['anymail', ]
 
@@ -60,14 +53,18 @@ ANYMAIL = {
     'MAILGUN_API_KEY': 'key-48650e6634bd972b621fae537f39cafa',
     'MAILGUN_SENDER_DOMAIN': 'sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
 }
-EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-
+#EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
 EMAIL_HOST_USER = env('USER_MAIL', default=None)
 EMAIL_HOST_PASSWORD = env('USER_MAIL_PASSWORD', default=None)
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
+                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
 
+SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 
 #TEMPLATE CONFIGURATION---------------------------------------------------------
 TEMPLATES[0]['OPTIONS']['loaders'] = [
