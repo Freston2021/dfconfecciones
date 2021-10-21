@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+from decouple import config
 
 import environ
 import sys
@@ -98,6 +99,12 @@ FIXTURE_DIRS = (
 CONTACT_FORM_RECIPIENTS = (
     ('daysi fernandez', 'dfdtex@gmail.com'),
 )
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('USER_MAIL')
+EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
+EMAIL_USE_TLS = True
 
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
