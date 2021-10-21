@@ -53,7 +53,7 @@ EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysiweb]')
 
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
-Anymail with Mailgun
+#Anymail with Mailgun
 INSTALLED_APPS += ['anymail', ]
 
 ANYMAIL = {
