@@ -45,10 +45,10 @@ LOCAL_APPS = [
     'photologue_custom',
     'sortedm2m',
     'contact_form',
-    'ckeditor',
     'corsheaders',
     'parler',
     'tinymce',
+    'ckeditor',
     'newsletter',
     'easy_thumbnails',
 ]
@@ -303,6 +303,7 @@ if len(sys.argv) > 1 and sys.argv[1] == 'test':
 CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'kama',
+        # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
@@ -328,29 +329,39 @@ CKEDITOR_CONFIGS = {
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
             {'name': 'about', 'items': ['About']},
-            '/',
+            '/',  # put this to force next toolbar on new line
             {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
                 'Preview',
                 'Maximize',
 
             ]},
         ],
-        'toolbar': 'YourCustomToolbarConfig',
+        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        # 'height': 291,
+        # 'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
-        'extraPlugins': ','.join(
-            [
-                'div',
-                'autolink',
-                'autoembed',
-                'embedsemantic',
-                'autogrow',
-                'widget',
-                'lineutils',
-                'clipboard',
-                'dialog',
-                'dialogui',
-                'elementspath'
-            ]),
+        'extraPlugins': ','.join([
+            'uploadimage', # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            # 'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath'
+        ]),
     }
 }
 
