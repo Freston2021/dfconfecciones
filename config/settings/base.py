@@ -48,6 +48,9 @@ LOCAL_APPS = [
     'ckeditor',
     'corsheaders',
     'parler',
+    'tinymce',
+    'newsletter',
+    'easy_thumbnails',
 ]
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -365,3 +368,22 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+#NEWSLETTER---------------------------------------------------------------------
+# Using sorl-thumbnail
+NEWSLETTER_THUMBNAIL = 'easy-thumbnails'
+# Using django-imperavi
+NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
+
+# Emails configuration #
+
+# Enabling or Disabling email confirmation
+NEWSLETTER_CONFIRM_EMAIL = True
+
+# The delay between each email. Batches en batch size can be specified:
+# Amount of seconds to wait between each email. Here 100ms is used.
+NEWSLETTER_EMAIL_DELAY = 0.1
+# Amount of seconds to wait between each batch. Here one minute is used.
+NEWSLETTER_BATCH_DELAY = 60
+# Number of emails in one batch
+NEWSLETTER_BATCH_SIZE = 100

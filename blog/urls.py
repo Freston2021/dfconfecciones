@@ -17,9 +17,9 @@ Including another URLconf
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 from django.conf.urls import url
+from django.urls import include, path
 from . import views
 from django.conf import settings
-from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
@@ -45,6 +45,8 @@ urlpatterns = [
     url(r'^acercademi/$', views.acerca_de_mi, name='acerca_de_mi'),
     url(r'^photologue/', include('photologue.urls', namespace='photologue')),
     url(r'^contact/', include('contact_form.urls' , namespace='contact_form')),
+    path('tinymce/', include('tinymce.urls')),
+    path('newsletter/', include('newsletter.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
