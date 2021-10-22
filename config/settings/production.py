@@ -62,6 +62,13 @@ DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
+EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
 #TEMPLATE CONFIGURATION---------------------------------------------------------
 TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', [
