@@ -1,5 +1,4 @@
 from __future__ import absolute_import, unicode_literals
-
 import environ
 import sys
 import os
@@ -98,6 +97,18 @@ FIXTURE_DIRS = (
 CONTACT_FORM_RECIPIENTS = (
     ('daysi fernandez', 'dfdtex@gmail.com'),
 )
+
+EMAIL_HOST = 'smtp.gmail.com'
+print (EMAIL_HOST)
+#EMAIL_HOST_USER = env("DJANGO_USER_MAIL", default=None),
+EMAIL_HOST_USER = "dfdtex@gmail.com"
+print (EMAIL_HOST_USER)
+#EMAIL_HOST_PASSWORD = env("DJANGO_USER_MAIL_PASSWORD", default=None),
+EMAIL_HOST_PASSWORD = "minflaubzwwyemge"
+print (EMAIL_HOST_PASSWORD)
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
