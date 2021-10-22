@@ -48,21 +48,31 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #EMAIL--------------------------------------------------------------------------
 #Anymail with Mailgun
 #INSTALLED_APPS += ['anymail', ]
-
 #ANYMAIL = {
 #    'MAILGUN_API_KEY': 'key-48650e6634bd972b621fae537f39cafa',
 #    'MAILGUN_SENDER_DOMAIN': 'sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
 #}
-
 #EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#----------------
 
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
-EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
+#Mailgun Free provisto por Heroku
+#Da ERROR: (421, b'Domain sandboxcf6b72de7a6b433b96429efde7723952.mailgun.org
+#is not allowed to send: Sandbox subdomains are for test purposes only.
+#Please add your own domain or add the address to authorized recipients in Account Settings.')
+
+#EMAIL_HOST = 'smtp.mailgun.org'
+#EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
+#EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+
+#Configuración de Gmail
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
+EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='PAGINAWEB <paginaweb@dfconfecciones.com>')
