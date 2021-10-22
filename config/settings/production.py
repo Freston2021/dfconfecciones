@@ -56,17 +56,19 @@ ANYMAIL = {
 
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
-
-SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
-EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
 EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
+                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
+
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
+SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 
 #TEMPLATE CONFIGURATION---------------------------------------------------------
