@@ -60,19 +60,22 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #Da ERROR: (421, b'Domain sandboxcf6b72de7a6b433b96429efde7723952.mailgun.org
 #is not allowed to send: Sandbox subdomains are for test purposes only.
 #Please add your own domain or add the address to authorized recipients in Account Settings.')
+#Por lo tanto autoricé 2 direciones: dfdtex@gmail.com y silvaeduardojavier@hotmail.com
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
+EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+#--------------------
 
-#EMAIL_HOST = 'smtp.mailgun.org'
-#EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
-#EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
+#Configuración de Gmail-->No funciona para Enviar, para recibir si funciona.
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
+#EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
 #EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
 
-#Configuración de Gmail
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
-EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+#Cofiguracion de prefijo de email
 
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='PAGINAWEB <paginaweb@dfconfecciones.com>')
