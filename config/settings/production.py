@@ -53,17 +53,14 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #    'MAILGUN_SENDER_DOMAIN': 'sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
 #}
 #EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#----------------
 
-#Mailgun Free provisto por Heroku
-#Da ERROR: (421, b'Domain sandboxcf6b72de7a6b433b96429efde7723952.mailgun.org
-#is not allowed to send: Sandbox subdomains are for test purposes only.
-#Please add your own domain or add the address to authorized recipients in Account Settings.')
-#Por lo tanto autoricé 2 direciones: dfdtex@gmail.com y silvaeduardojavier@hotmail.com
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN')
-EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD')
+
+#---------------------
+#Configuración CloundMail provisto por Heroku
+
+EMAIL_HOST = 'smtp.cloudmta.net'
+EMAIL_HOST_USER = env('CLOUDMAILIN_USERNAME')
+EMAIL_HOST_PASSWORD = env('CLOUDMAILIN_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 #--------------------
@@ -76,12 +73,15 @@ EMAIL_USE_TLS = True
 #EMAIL_USE_TLS = True
 
 #Cofiguracion de prefijo de email
-
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='PAGINAWEB <paginaweb@dfconfecciones.com>')
 
 EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+
+#--------------------
+#Email Backend de Django
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
 #TEMPLATE CONFIGURATION---------------------------------------------------------
