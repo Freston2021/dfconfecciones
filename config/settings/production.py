@@ -56,10 +56,11 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 
 #SendGrid---------------------
-    EMAIL_HOST = env("SENDGRID_EMAIL_HOST", default=None)
+    EMAIL_HOST = env("SENDGRID_EMAIL_HOST")
+    EMAIL_HOST = env("SENDGRID_EMAIL_HOST")
     EMAIL_PORT = env("SENDGRID_EMAIL_PORT", default=None)
-    EMAIL_HOST_USER = env("SENDGRID_EMAIL_USER", default=None)
-    EMAIL_HOST_PASSWORD = env("SENDGRID_EMAIL_PASSWORD", default=None)
+    EMAIL_HOST_USER = env("SENDGRID_EMAIL_USER")
+    EMAIL_HOST_PASSWORD = env("SENDGRID_EMAIL_PASSWORD")
     EMAIL_USE_TLS = True
 
 #----------------------
