@@ -4,11 +4,25 @@ import sys
 import os
 
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+
+
+#BASE_DIR devuelve la ruta base de la app
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#print ("base dir path -->", BASE_DIR)
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path('blog')
 
-env = environ.Env()
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+#env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
 
@@ -98,6 +112,19 @@ CONTACT_FORM_RECIPIENTS = (
     ('daysi fernandez', 'dfdtex@gmail.com'),
 )
 
+#SendGrid---------------------
+#EMAIL_HOST = env("SENDGRID_EMAIL_HOST")
+#EMAIL_PORT = env("SENDGRID_EMAIL_PORT")
+#EMAIL_HOST_USER = env("SENDGRID_EMAIL_USER")
+#EMAIL_HOST_PASSWORD = env("SENDGRID_EMAIL_PASSWORD")
+#EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
+EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
@@ -171,9 +198,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 #STATIC FILE CONFIGURATION------------------------------------------------------
-#BASE_DIR devuelve la ruta base de la app
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-#print ("base dir path -->", BASE_DIR)
 
 #MEDIA_ROOT es la carpeta donde irán los archivos cargados usando FileField.
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -183,13 +207,15 @@ MEDIA_URL = '/media/'
 #print ("Media Url path -->", MEDIA_URL)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#print ("Static Root path -->", STATIC_ROOT)
+print ("Static Root path -->", STATIC_ROOT)
 
 #whitenoise#####################################################################
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 #STATICFILES_STORAGE = 'dfconfecciones.storage.S3Storage'
-STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
-STATIC_URL = STATIC_HOST + '/static/'
+#STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
+#STATIC_URL = STATIC_HOST + '/static/'
+STATIC_URL = '/static/'
+
 #STATIC_URL = '/static/'
 #print ("Static Url path -->", STATIC_URL)
 

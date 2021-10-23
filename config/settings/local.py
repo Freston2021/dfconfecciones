@@ -1,6 +1,7 @@
 import socket
 import os
 from .base import *
+from .base import env
 
 
 #DEBUG--------------------------------------------------------------------------
@@ -18,17 +19,13 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='%,%2`oTuz!5Dp~-3}3{kb3r;N`oZ+9xOU
 #EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
 #                   default='django.core.mail.backends.console.EmailBackend')
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
-EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
+#EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
 
-EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
-SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 #CACHING------------------------------------------------------------------------
 CACHES = {
