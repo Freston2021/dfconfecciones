@@ -59,8 +59,13 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #Configuración CloundMail provisto por Heroku
 
 EMAIL_HOST = 'smtp.cloudmta.net'
-EMAIL_HOST_USER = env('CLOUDMAILIN_USERNAME')
-EMAIL_HOST_PASSWORD = env('CLOUDMAILIN_PASSWORD')
+
+#EMAIL_HOST_USER = env('CLOUDMAILIN_USERNAME')
+EMAIL_HOST_USER = 'c13c506dea731b2f'
+
+#EMAIL_HOST_PASSWORD = env('CLOUDMAILIN_PASSWORD')
+EMAIL_HOST_PASSWORD = 'Y7RCssJJPuyfwPWharWcxwr2'
+
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 #--------------------
