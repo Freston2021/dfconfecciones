@@ -3,19 +3,14 @@ import environ
 import sys
 import os
 
-
-
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
 )
 
-
-
 #BASE_DIR devuelve la ruta base de la app
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #print ("base dir path -->", BASE_DIR)
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path('blog')
 
@@ -113,17 +108,19 @@ CONTACT_FORM_RECIPIENTS = (
 )
 
 #SendGrid---------------------
-#EMAIL_HOST = env("SENDGRID_EMAIL_HOST")
-#EMAIL_PORT = env("SENDGRID_EMAIL_PORT")
-#EMAIL_HOST_USER = env("SENDGRID_EMAIL_USER")
-#EMAIL_HOST_PASSWORD = env("SENDGRID_EMAIL_PASSWORD")
-#EMAIL_USE_TLS = True
+SENDGRID_API_KEY = os.getenv('SENDGRID_EMAIL_PASSWORD')
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
-EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
+#EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
 
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
