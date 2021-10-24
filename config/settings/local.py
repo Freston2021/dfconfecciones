@@ -56,7 +56,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 
-
 #DJANGO-EXTENSIONS--------------------------------------------------------------
 INSTALLED_APPS += ['django_extensions']
 
