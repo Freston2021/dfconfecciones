@@ -56,11 +56,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 
 #SendGrid---------------------
-EMAIL_HOST = os.getenv("SENDGRID_EMAIL_HOST")
-EMAIL_PORT = os.getenv("SENDGRID_EMAIL_PORT")
-EMAIL_HOST_USER = os.getenv("SENDGRID_EMAIL_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
-EMAIL_USE_TLS = True
 
 #----------------------
 #Configuración CloundMail provisto por Heroku
@@ -85,11 +80,11 @@ EMAIL_USE_TLS = True
 #EMAIL_USE_TLS = True
 
 #Cofiguracion de prefijo de email
-DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
+#DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
+#                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
 
-EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
-SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+#EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
+#SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 #--------------------
 #Email Backend de Django
