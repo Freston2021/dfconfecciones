@@ -55,29 +55,12 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
 
-#SendGrid---------------------
-
-#----------------------
-#Configuración CloundMail provisto por Heroku
-
-#EMAIL_HOST = 'smtp.cloudmta.net'
-
-#EMAIL_HOST_USER = env('CLOUDMAILIN_USERNAME')
-#EMAIL_HOST_USER = 'c13c506dea731b2f'
-
-#EMAIL_HOST_PASSWORD = env('CLOUDMAILIN_PASSWORD')
-#EMAIL_HOST_PASSWORD = 'Y7RCssJJPuyfwPWharWcxwr2'
-
-#EMAIL_PORT = 587
-#EMAIL_USE_TLS = True
-#--------------------
-
-#Configuración de Gmail-->No funciona para Enviar, para recibir si funciona.
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
-#EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
-#EMAIL_PORT = 587
-#EMAIL_USE_TLS = True
+Configuración de Gmail-->No funciona para Enviar, para recibir si funciona.
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
+EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 #Cofiguracion de prefijo de email
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
