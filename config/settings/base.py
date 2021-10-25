@@ -108,7 +108,7 @@ CONTACT_FORM_RECIPIENTS = (
 )
 
 #SendGrid---------------------
-SENDGRID_API_KEY = os.getenv('SENDGRID_EMAIL_PASSWORD')
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
