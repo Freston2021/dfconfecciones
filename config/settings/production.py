@@ -55,7 +55,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
 
-Configuración de Gmail-->No funciona para Enviar, para recibir si funciona.
+#Configuración de Gmail-->No funciona para Enviar, para recibir si funciona.
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
 EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
