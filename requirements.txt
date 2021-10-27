@@ -101,6 +101,7 @@ packaging==21.0
 paramiko==2.7.0
 pathlib==1.0.1
 pexpect==4.8.0
+phonenumbers==8.12.35
 pickleshare==0.7.4
 Pillow==8.4.0
 platformdirs==2.4.0
