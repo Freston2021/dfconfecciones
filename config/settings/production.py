@@ -28,22 +28,22 @@ SECURE_REFERRER_POLICY = 'strict-origin'
 #STORAGE CONFIGURATION----------------------------------------------------------
 INSTALLED_APPS += ['gunicorn', ]
 
-AWS_ACCESS_KEY_ID = env("DJANGO_AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env("DJANGO_AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = env("DJANGO_AWS_STORAGE_BUCKET_NAME")
-AWS_QUERYSTRING_AUTH = False
-_AWS_EXPIRY = 60 * 60 * 24 * 7
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": f"max-age={_AWS_EXPIRY}, s-maxage={_AWS_EXPIRY}, must-revalidate"
-}
-AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
-AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
-aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+#AWS_ACCESS_KEY_ID = env("DJANGO_AWS_ACCESS_KEY_ID")
+#AWS_SECRET_ACCESS_KEY = env("DJANGO_AWS_SECRET_ACCESS_KEY")
+#AWS_STORAGE_BUCKET_NAME = env("DJANGO_AWS_STORAGE_BUCKET_NAME")
+#AWS_QUERYSTRING_AUTH = False
+#_AWS_EXPIRY = 60 * 60 * 24 * 7
+#AWS_S3_OBJECT_PARAMETERS = {
+#    "CacheControl": f"max-age={_AWS_EXPIRY}, s-maxage={_AWS_EXPIRY}, must-revalidate"
+#}
+#AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
+#AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
+#aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
-MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+#MEDIA_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 #STATIC_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #EMAIL--------------------------------------------------------------------------
 #Anymail with Mailgun

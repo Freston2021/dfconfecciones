@@ -2,22 +2,20 @@ from __future__ import absolute_import, unicode_literals
 import environ
 import sys
 import os
-
+"""
+The ocean is older than the mountains,
+and is loaded with the memories and dreams of time.
+H.P. Lovecraft
+"""
 env = environ.Env(
-    # set casting, default value
     DEBUG=(bool, False)
 )
 
-#BASE_DIR devuelve la ruta base de la app
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-#print ("base dir path -->", BASE_DIR)
 ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path('blog')
 
-# Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-#env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
 
@@ -209,7 +207,6 @@ TEMPLATES = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
 #STATIC FILE CONFIGURATION------------------------------------------------------
 
 #MEDIA_ROOT es la carpeta donde irán los archivos cargados usando FileField.
@@ -220,7 +217,6 @@ MEDIA_URL = '/media/'
 #print ("Media Url path -->", MEDIA_URL)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-print ("Static Root path -->", STATIC_ROOT)
 
 #whitenoise#####################################################################
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
