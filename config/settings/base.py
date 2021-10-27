@@ -59,6 +59,7 @@ LOCAL_APPS = [
     'ckeditor',
     'newsletter',
     'easy_thumbnails',
+    'phonenumber_field',
 ]
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -103,24 +104,39 @@ FIXTURE_DIRS = (
 
 
 #EMAIL CONFIGURATION------------------------------------------------------------
+
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
+                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
+
+SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+
 CONTACT_FORM_RECIPIENTS = (
     ('daysi fernandez', 'dfdtex@gmail.com'),
 )
 
-#SendGrid---------------------
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+
+#SendGrid---------------------
+#SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+#EMAIL_HOST = 'smtp.sendgrid.net'
+#EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+#EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
 
 #EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
 #EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
 #EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
+
+MAILJET_API_KEY = os.getenv('MAILJET_API_KEY')
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_HOST_USER = '892b5344ed2f16c4368835b6650b5067'
+EMAIL_HOST_PASSWORD = MAILJET_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
@@ -426,3 +442,7 @@ NEWSLETTER_EMAIL_DELAY = 0.1
 NEWSLETTER_BATCH_DELAY = 60
 # Number of emails in one batch
 NEWSLETTER_BATCH_SIZE = 100
+
+#Phonenumber Set----------------------------------------------------------------
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'BO'

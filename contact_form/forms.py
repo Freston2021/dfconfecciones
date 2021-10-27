@@ -13,6 +13,8 @@ except ImportError:
     ReCaptchaField = object
 
 from .models import ContactFormCategory
+from phonenumber_field.formfields import PhoneNumberField
+
 
 
 class ContactForm(forms.Form):
@@ -28,8 +30,12 @@ class ContactForm(forms.Form):
         required=False,
     )
 
+    phone = PhoneNumberField(
+        label=_('Telefono'),
+    )
+
     email = forms.EmailField(
-        label=_('Email'),
+        label= ('Email'),
     )
 
     message = forms.CharField(
