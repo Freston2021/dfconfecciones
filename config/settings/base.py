@@ -114,25 +114,11 @@ CONTACT_FORM_RECIPIENTS = (
 
 EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 
-
-#SendGrid---------------------
-#SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
-#EMAIL_HOST = 'smtp.sendgrid.net'
-#EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-#EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-#EMAIL_PORT = 587
-#EMAIL_USE_TLS = True
-
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
-#EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
-#EMAIL_PORT = 587
-#EMAIL_USE_TLS = True
-
-MAILJET_API_KEY = os.getenv('MAILJET_API_KEY')
-EMAIL_HOST = 'in-v3.mailjet.com'
-EMAIL_HOST_USER = '892b5344ed2f16c4368835b6650b5067'
-EMAIL_HOST_PASSWORD = MAILJET_API_KEY
+#MAilgun-------------------------------------------------
+MAILGUN_PASSWORD_KEY = os.getenv('MAILGUN_PASSWORD_KEY')
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = 'postmaster@sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
+EMAIL_HOST_PASSWORD = MAILGUN_PASSWORD_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

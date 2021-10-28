@@ -46,21 +46,48 @@ INSTALLED_APPS += ['gunicorn', ]
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 #EMAIL--------------------------------------------------------------------------
+
 #Anymail with Mailgun
-#INSTALLED_APPS += ['anymail', ]
-#ANYMAIL = {
-#    'MAILGUN_API_KEY': 'key-48650e6634bd972b621fae537f39cafa',
-#    'MAILGUN_SENDER_DOMAIN': 'sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
-#}
-#EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+INSTALLED_APPS += ['anymail', ]
+ANYMAIL = {
+    'MAILGUN_API_KEY': 'key-48650e6634bd972b621fae537f39cafa',
+    'MAILGUN_SENDER_DOMAIN': 'sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
+}
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
-#Cofiguracion de prefijo de email
+#-------------------------------------------------------------------------------
 
-
-#--------------------
 #Email Backend de Django
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+#-------------------------------------------------------------------------------
+
+#Varios Email Sender:
+
+#SendGrid---------------------
+#SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+#EMAIL_HOST = 'smtp.sendgrid.net'
+#EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+#EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+
+#Gmail------------------------
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
+#EMAIL_HOST_PASSWORD = env('DJANGO_USER_MAIL_PASSWORD')
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+
+#Mailjet----------------------
+#MAILJET_API_KEY = os.getenv('MAILJET_API_KEY')
+#EMAIL_HOST = 'in-v3.mailjet.com'
+#EMAIL_HOST_USER = '892b5344ed2f16c4368835b6650b5067'
+#EMAIL_HOST_PASSWORD = MAILJET_API_KEY
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+
+#-------------------------------------------------------------------------------
 
 #TEMPLATE CONFIGURATION---------------------------------------------------------
 TEMPLATES[0]['OPTIONS']['loaders'] = [
