@@ -47,6 +47,7 @@ urlpatterns = [
     url(r'^contact/', include('contact_form.urls' , namespace='contact_form')),
     path('tinymce/', include('tinymce.urls')),
     path('newsletter/', include('newsletter.urls')),
+    path('newsfeed/', include('newsfeed.urls', namespace='newsfeed')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

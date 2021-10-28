@@ -58,6 +58,7 @@ LOCAL_APPS = [
     'newsletter',
     'easy_thumbnails',
     'phonenumber_field',
+    'newsfeed',
 ]
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -417,6 +418,9 @@ NEWSLETTER_EMAIL_DELAY = 0.1
 NEWSLETTER_BATCH_DELAY = 60
 # Number of emails in one batch
 NEWSLETTER_BATCH_SIZE = 100
+
+#newsfeed configuration---------------------------------------------------------
+NEWSFEED_SITE_BASE_URL = 'https://dfconfecciones.herokuapp.com/'
 
 #Phonenumber Set----------------------------------------------------------------
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
