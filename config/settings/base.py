@@ -419,9 +419,6 @@ NEWSLETTER_BATCH_DELAY = 60
 # Number of emails in one batch
 NEWSLETTER_BATCH_SIZE = 100
 
-#newsfeed configuration---------------------------------------------------------
-#NEWSFEED_SITE_BASE_URL = 'https://dfconfecciones.herokuapp.com/'
-
 #Phonenumber Set----------------------------------------------------------------
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'BO'

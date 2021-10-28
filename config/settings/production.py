@@ -195,3 +195,6 @@ LOGGING = {
         }
     }
 }
+
+#newsfeed configuration---------------------------------------------------------
+NEWSFEED_SITE_BASE_URL = 'https://dfconfecciones.herokuapp.com'
