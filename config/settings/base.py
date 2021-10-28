@@ -420,7 +420,7 @@ NEWSLETTER_BATCH_DELAY = 60
 NEWSLETTER_BATCH_SIZE = 100
 
 #newsfeed configuration---------------------------------------------------------
-NEWSFEED_SITE_BASE_URL = 'https://dfconfecciones.herokuapp.com/'
+#NEWSFEED_SITE_BASE_URL = 'https://dfconfecciones.herokuapp.com/'
 
 #Phonenumber Set----------------------------------------------------------------
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
