@@ -25,13 +25,15 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='%,%2`oTuz!5Dp~-3}3{kb3r;N`oZ+9xOU
 #EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
 
+#-------------------------------------------------------------------------------
 #MAilgun de la cuenta dfdtex@gmail.com, autorizando contactos que reciben-------
-MAILGUN_PASSWORD_KEY = os.getenv('MAILGUN_PASSWORD_KEY')
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_HOST_USER = 'postmaster@sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
-EMAIL_HOST_PASSWORD = MAILGUN_PASSWORD_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+
+#MAILGUN_PASSWORD_KEY = os.getenv('MAILGUN_PASSWORD_KEY')
+#EMAIL_HOST = 'smtp.mailgun.org'
+#EMAIL_HOST_USER = 'postmaster@sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
+#EMAIL_HOST_PASSWORD = MAILGUN_PASSWORD_KEY
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
 
 
 #CACHING------------------------------------------------------------------------

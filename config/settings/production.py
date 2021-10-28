@@ -72,17 +72,13 @@ INSTALLED_APPS += ['gunicorn', ]
 
 #Varios Email Sender:-----------------------------------------------------------
 
-#MAilgun add on de Heroku PLan-->Free-------------------Prueba------------------
+#MAilgun add on de Heroku configurado en Base.py
+#Plan-->Free-------------------Prueba----------
+
 #3 correos autorizados(Authorized Recipients):
                         #dfdtex@gmail.com;
                         #epoealan@gmail.com;
                         #silvaeduardojavier@hotmail.com
-
-EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
-EMAIL_USE_TLS = True
 #-------------------------------------------------------------------------------
 
 #SendGrid---------------------
@@ -118,16 +114,6 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 
 
 #DATABASE CONFIGURATION---------------------------------------------------------
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dfihb1lvp6qp9k',
-        'USER': 'btvocdbcaidbla',
-        'PASSWORD': 'b9c8d202ddf236ddc72f314cb9ddd6388e9a96ce6838ff9e6a2e2627aca6f919',
-        'HOST': 'ec2-3-215-83-124.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
 
 #DATABASES = {
 #    'default': {

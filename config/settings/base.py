@@ -65,7 +65,6 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-
 #SITE CONFIGURATION-------------------------------------------------------------
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'dfconfecciones.herokuapp.com']
 
@@ -89,20 +88,30 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 #DEBUG--------------------------------------------------------------------------
-#DEBUG = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", False)
-
 
 #FIXTURE CONFIGURATION----------------------------------------------------------
 FIXTURE_DIRS = (
     str(APPS_DIR.path('fixtures')),
 )
 
-
 #EMAIL CONFIGURATION------------------------------------------------------------
+#Mailgun Add On de Heroku
+#EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+#EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+#EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+#EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+#EMAIL_USE_TLS = True
+
+EMAIL_HOST = env('MAILGUN_SMTP_SERVER', default=None)
+EMAIL_PORT = env('MAILGUN_SMTP_PORT', default=None)
+EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN', default=None)
+EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD', default=None)
+EMAIL_USE_TLS = True
+
+
 
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='PAGINAWEB <paginaweb@dfconfecciones.com>')
@@ -115,7 +124,6 @@ CONTACT_FORM_RECIPIENTS = (
 
 EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 
-
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
@@ -124,15 +132,29 @@ ADMINS = [
 
 MANAGERS = ADMINS
 
-
 #DATABASE CONFIGURATION--------------------------------------------------------
+
+#Django database por defecto
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': 'mydatabase',
+#    }
+#}
+
+#Database PostgresSQL suministrada por HEROKU-->gratis, en Add Ons.
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dfihb1lvp6qp9k',
+        'USER': 'btvocdbcaidbla',
+        'PASSWORD': 'b9c8d202ddf236ddc72f314cb9ddd6388e9a96ce6838ff9e6a2e2627aca6f919',
+        'HOST': 'ec2-3-215-83-124.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
+#Basededatos de PostgresSQL-->creada por mi
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
@@ -143,7 +165,6 @@ DATABASES = {
 #        'PORT': '5432',
 #    }
 #}
-
 
 #GENERAL CONFIGURATION----------------------------------------------------------
 TIME_ZONE = 'America/La_Paz'
@@ -189,35 +210,28 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #STATIC FILE CONFIGURATION------------------------------------------------------
 
-#MEDIA_ROOT es la carpeta donde irán los archivos cargados usando FileField.
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#print ("Media Root path -->", MEDIA_ROOT)
 
 MEDIA_URL = '/media/'
-#print ("Media Url path -->", MEDIA_URL)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 #whitenoise#####################################################################
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 #STATICFILES_STORAGE = 'dfconfecciones.storage.S3Storage'
 #STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 #STATIC_URL = STATIC_HOST + '/static/'
-STATIC_URL = '/static/'
-
-#STATIC_URL = '/static/'
-#print ("Static Url path -->", STATIC_URL)
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-#print ("Staticfiles Dirs path -->", STATICFILES_DIRS)
 
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 #PASSWORD VALIDATION------------------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
@@ -234,7 +248,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 #AUTHENTICATION CONFIGURATION---------------------------------------------------
 AUTHENTICATION_BACKENDS = [
@@ -258,7 +271,6 @@ LOGIN_URL = 'account_login'
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 ADMIN_URL = r'^admin/'
-
 
 #LOGGING CONFIGURATION----------------------------------------------------------
 
@@ -317,7 +329,6 @@ LOGGING = {
 if len(sys.argv) > 1 and sys.argv[1] == 'test':
     LOGGING['loggers']['']['handlers'] = ['null']
     LOGGING['loggers']['photologue']['handlers'] = ['null']
-
 
 #CKEDITOR_CONFIGS---------------------------------------------------------------
 CKEDITOR_CONFIGS = {
