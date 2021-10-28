@@ -11,9 +11,14 @@ NEWSFEED_EMAIL_BATCH_SIZE = getattr(
 NEWSFEED_EMAIL_CONFIRMATION_EXPIRE_DAYS = getattr(
     settings, 'NEWSFEED_EMAIL_CONFIRMATION_EXPIRE_DAYS', 3
 )
+#NEWSFEED_SITE_BASE_URL = getattr(
+#    settings, 'NEWSFEED_SITE_BASE_URL', 'http://127.0.0.1:8000'
+#)
+
 NEWSFEED_SITE_BASE_URL = getattr(
-    settings, 'NEWSFEED_SITE_BASE_URL', 'http://127.0.0.1:8000'
+    settings, 'NEWSFEED_SITE_BASE_URL', 'https://dfconfecciones.herokuapp.com'
 )
+
 NEWSFEED_SUBSCRIPTION_REDIRECT_URL = getattr(
     settings, 'NEWSFEED_SUBSCRIPTION_REDIRECT_URL',
     reverse_lazy('newsfeed:issue_list')
