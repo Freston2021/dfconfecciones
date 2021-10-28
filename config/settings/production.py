@@ -63,6 +63,12 @@ ANYMAIL = {
 #-------------------------------------------------------------------------------
 
 #Varios Email Sender:
+#MAilgun-------------------
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+#-----------------------------------------------------------------
 
 #SendGrid---------------------
 #SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
