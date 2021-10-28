@@ -114,13 +114,6 @@ CONTACT_FORM_RECIPIENTS = (
 
 EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
 
-#MAilgun-------------------------------------------------
-MAILGUN_PASSWORD_KEY = os.getenv('MAILGUN_PASSWORD_KEY')
-EMAIL_HOST = 'smtp.mailgun.org'
-EMAIL_HOST_USER = 'postmaster@sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
-EMAIL_HOST_PASSWORD = MAILGUN_PASSWORD_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 
 #MANAGER CONFIGURATION----------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
