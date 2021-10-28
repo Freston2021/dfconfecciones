@@ -24,9 +24,16 @@ CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_REFERRER_POLICY = 'strict-origin'
 
+#gunicorn???????----------------------------------------------------------------
+INSTALLED_APPS += ['gunicorn', ]
+#-------------------------------------------------------------------------------
 
 #STORAGE CONFIGURATION----------------------------------------------------------
-INSTALLED_APPS += ['gunicorn', ]
+
+#Usando el mismo que Local, esta la configuración en Base.py--Media y Static----
+#-------------------------------------------------------------------------------
+
+#AWS S3----OJO!!!! es gratis hasta cierto limite!!!-----------------------
 
 #AWS_ACCESS_KEY_ID = env("DJANGO_AWS_ACCESS_KEY_ID")
 #AWS_SECRET_ACCESS_KEY = env("DJANGO_AWS_SECRET_ACCESS_KEY")
@@ -44,15 +51,16 @@ INSTALLED_APPS += ['gunicorn', ]
 #STATIC_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
 
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#-------------------------------------------------------------------------------
 
 #EMAIL--------------------------------------------------------------------------
 
-#Anymail with Mailgun
-INSTALLED_APPS += ['anymail', ]
-ANYMAIL = {
-    'MAILGUN_API_KEY': 'key-48650e6634bd972b621fae537f39cafa',
-    'MAILGUN_SENDER_DOMAIN': 'sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
-}
+#Anymail with Mailgun(cuenta dfdtex@gmail.com)
+#INSTALLED_APPS += ['anymail', ]
+#ANYMAIL = {
+#    'MAILGUN_API_KEY': 'key-48650e6634bd972b621fae537f39cafa',
+#    'MAILGUN_SENDER_DOMAIN': 'sandboxd3d8ace8e76c47dcb7a7507df5c56455.mailgun.org'
+#}
 #EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 
 #-------------------------------------------------------------------------------
@@ -62,13 +70,19 @@ ANYMAIL = {
 
 #-------------------------------------------------------------------------------
 
-#Varios Email Sender:
-#MAilgun-------------------
+#Varios Email Sender:-----------------------------------------------------------
+
+#MAilgun add on de Heroku PLan-->Free-------------------Prueba------------------
+#3 correos autorizados(Authorized Recipients):
+                        #dfdtex@gmail.com;
+                        #epoealan@gmail.com;
+                        #silvaeduardojavier@hotmail.com
+
 EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
 EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
 EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
 EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
-#-----------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 #SendGrid---------------------
 #SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
