@@ -1,136 +1,52 @@
 from __future__ import absolute_import, unicode_literals
+from pathlib import Path
 import environ
 import sys
 import os
+
 """
 The ocean is older than the mountains,
 and is loaded with the memories and dreams of time.
 H.P. Lovecraft
 """
-env = environ.Env(
-    DEBUG=(bool, False)
-)
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ROOT_DIR = environ.Path(__file__) - 3
-APPS_DIR = ROOT_DIR.path('blog')
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
+print(ROOT_DIR)
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+print(ROOT_DIR / ".env")
 
-READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
+# dfconfecciones/
+APPS_DIR = ROOT_DIR / "blog"
+print(APPS_DIR)
 
+env = environ.Env()
+
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
-    env_file = str(ROOT_DIR.path('.env'))
-    print('Loading : {}'.format(env_file))
-    env.read_env(env_file)
-    print('The .env file has been loaded. See base.py for more information')
+    # OS environment variables take precedence over variables from .env
+    env.read_env(str(ROOT_DIR / ".env"))
 
-
-#APP CONFIGURATION--------------------------------------------------------------
-DJANGO_APPS = [
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-]
-
-THIRD_PARTY_APPS = [
-    'crispy_forms',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-]
-
-LOCAL_APPS = [
-    'blog',
-    'photologue',
-    'photologue_custom',
-    'sortedm2m',
-    'contact_form',
-    'corsheaders',
-    'parler',
-    'tinymce',
-    'ckeditor',
-    'newsletter',
-    'easy_thumbnails',
-    'phonenumber_field',
-    'newsfeed',
-]
-
-CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
-
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
-#SITE CONFIGURATION-------------------------------------------------------------
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'dfconfecciones.herokuapp.com']
-
-CORS_ALLOWED_ORIGINS = [
-    "https://dfconfecciones.herokuapp.com",
-    "http://localhost:8080",
-    "http://127.0.0.1:9000",
-]
-
-#MIDDLEWARE CONFIGURATION-------------------------------------------------------
-
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
+#GENERAL CONFIGURATION----------------------------------------------------------
 #DEBUG--------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", False)
 
-#FIXTURE CONFIGURATION----------------------------------------------------------
-FIXTURE_DIRS = (
-    str(APPS_DIR.path('fixtures')),
-)
+TIME_ZONE = 'America/La_Paz'
 
-#EMAIL CONFIGURATION------------------------------------------------------------
-#Mailgun Add On de Heroku
-#EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
-#EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
-#EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
-#EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
-#EMAIL_USE_TLS = True
+LANGUAGE_CODE = 'es-AR'
 
-EMAIL_HOST = env('MAILGUN_SMTP_SERVER', default=None)
-EMAIL_PORT = env('MAILGUN_SMTP_PORT', default=None)
-EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN', default=None)
-EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD', default=None)
-EMAIL_USE_TLS = True
+SITE_ID = 1
 
+USE_I18N = True
 
+USE_L10N = True
 
-DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
+USE_TZ = True
 
-SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+# https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
+LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
-CONTACT_FORM_RECIPIENTS = (
-    ('daysi fernandez', 'dfdtex@gmail.com'),
-)
-
-EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
-
-#MANAGER CONFIGURATION----------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [
-    ("""Eduardo Silva""", 'dfdtex@hotmail.com'),
-]
-
-MANAGERS = ADMINS
+#-------------------------------------------------------------------------------
 
 #DATABASE CONFIGURATION--------------------------------------------------------
 
@@ -166,58 +82,153 @@ DATABASES = {
 #    }
 #}
 
-#GENERAL CONFIGURATION----------------------------------------------------------
-TIME_ZONE = 'America/La_Paz'
+# ------------------------------------------------------------------------------
+ROOT_URLCONF = 'config.urls'
 
-LANGUAGE_CODE = 'es-AR'
+WSGI_APPLICATION = 'config.wsgi.application'
 
-SITE_ID = 1
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
-#TEMPLATE CONFIGURATION---------------------------------------------------------
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            str(APPS_DIR.path('templates')),
-        ],
-        'OPTIONS': {
-            'debug': DEBUG,
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ],
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
+#APP CONFIGURATION--------------------------------------------------------------
+DJANGO_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.forms',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+THIRD_PARTY_APPS = [
+    'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+]
 
-#STATIC FILE CONFIGURATION------------------------------------------------------
+DJANGO_APPS = [
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.admin",
+    "django.forms",
+]
+THIRD_PARTY_APPS = [
+    "crispy_forms",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+]
+
+LOCAL_APPS = [
+    'blog',
+    'photologue',
+    'photologue_custom',
+    'sortedm2m',
+    'contact_form',
+    'corsheaders',
+    'parler',
+    'tinymce',
+    'ckeditor',
+    'newsletter',
+    'easy_thumbnails',
+    'phonenumber_field',
+    'newsfeed',
+]
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# MIGRATIONS
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
+#MIGRATION_MODULES = {"sites": "dfconfecciones.contrib.sites.migrations"}
+
+#-------------------------------------------------------------------------------
+
+#AUTHENTICATION CONFIGURATION---------------------------------------------------
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+AUTH_USER_MODEL = 'blog.User'
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'account_login'
+
+AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
+
+#-------------------------------------------------------------------------------
+# PASSWORDS
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
+PASSWORD_HASHERS = [
+    # https://docs.djangoproject.com/en/dev/topics/auth/passwords/#using-argon2-with-django
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+]
+# https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+]
+
+#-------------------------------------------------------------------------------
+
+#MIDDLEWARE CONFIGURATION-------------------------------------------------------
+
+MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.common.BrokenLinkEmailsMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+#-------------------------------------------------------------------------------
+
+#Corsheaders, configuración-----------------------------------------------------
+CORS_ALLOWED_ORIGINS = [
+    "https://dfconfecciones.herokuapp.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:9000",
+]
+#-------------------------------------------------------------------------------
+
+#MEDIA AND STATIC CONFIGURATION------------------------------------------------------
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print(BASE_DIR)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "/media/"
 
-MEDIA_URL = '/media/'
-
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 STATIC_URL = '/static/'
 
+# Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -228,49 +239,98 @@ STATICFILES_DIRS = (
 #STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 #STATIC_URL = STATIC_HOST + '/static/'
 
+#-------------------------------------------------------------------------------
+
+#TEMPLATE CONFIGURATION---------------------------------------------------------
+
+TEMPLATES = [
+    {
+        # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        # https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
+        "DIRS": [str(APPS_DIR / "templates")],
+        "OPTIONS": {
+            # https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
+            # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+            ],
+            # https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+                "blog.utils.context_processors.settings_context",
+            ],
+        },
+    }
+]
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#form-renderer
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#FIXTURE CONFIGURATION----------------------------------------------------------
+
+FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
+
+#-------------------------------------------------------------------------------
+
+# SECURITY
 # ------------------------------------------------------------------------------
-ROOT_URLCONF = 'config.urls'
+# https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-httponly
+SESSION_COOKIE_HTTPONLY = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
+CSRF_COOKIE_HTTPONLY = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
+SECURE_BROWSER_XSS_FILTER = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
+X_FRAME_OPTIONS = "DENY"
 
-WSGI_APPLICATION = 'config.wsgi.application'
+#-------------------------------------------------------------------------------
 
-#PASSWORD VALIDATION------------------------------------------------------------
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+#EMAIL CONFIGURATION------------------------------------------------------------
+#Mailgun Add On de Heroku
+#EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+#EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+#EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+#EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
+#EMAIL_USE_TLS = True
+
+EMAIL_HOST = env('MAILGUN_SMTP_SERVER', default=None)
+EMAIL_PORT = env('MAILGUN_SMTP_PORT', default=None)
+EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN', default=None)
+EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD', default=None)
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
+                         default='PAGINAWEB <paginaweb@dfconfecciones.com>')
+
+SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
+
+CONTACT_FORM_RECIPIENTS = (
+    ('daysi fernandez', 'dfdtex@gmail.com'),
+)
+
+EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[daysifernandezweb]')
+
+# ADMIN
+# ------------------------------------------------------------------------------
+ADMIN_URL = "admin/"
+
+ADMINS = [
+    ("""Eduardo Silva""", 'dfdtex@hotmail.com'),
 ]
 
-#AUTHENTICATION CONFIGURATION---------------------------------------------------
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
-ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
-ACCOUNT_ADAPTER = 'blog.adapters.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'blog.adapters.SocialAccountAdapter'
-
-AUTH_USER_MODEL = 'blog.User'
-
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = 'account_login'
-
-AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
-
-ADMIN_URL = r'^admin/'
+#MANAGER CONFIGURATION----------------------------------------------------------
+MANAGERS = ADMINS
 
 #LOGGING CONFIGURATION----------------------------------------------------------
 
@@ -397,6 +457,23 @@ CKEDITOR_CONFIGS = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+#-------------------------------------------------------------------------------
+
+# django-allauth----------------------------------------------------------------
+ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_EMAIL_REQUIRED = True
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_ADAPTER = 'blog.adapters.AccountAdapter'
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+SOCIALACCOUNT_ADAPTER = 'blog.adapters.SocialAccountAdapter'
+
+#-------------------------------------------------------------------------------
 
 #SENTRY_SDK---------------------------------------------------------------------
 import sentry_sdk

@@ -3,15 +3,21 @@ import os
 from .base import *
 from .base import env
 
-
 #DEBUG--------------------------------------------------------------------------
-DEBUG = env.bool('DJANGO_DEBUG', default=True)
-TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
+# https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = True
+
+#TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 
 #SECRET CONFIGURATION-----------------------------------------------------------
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='%,%2`oTuz!5Dp~-3}3{kb3r;N`oZ+9xOUCwDI.p!TP:*48H#B$')
+SECRET_KEY = env(
+    "DJANGO_SECRET_KEY",
+    default="zy0UD54lKRbeZnfjnTFjYivOV8zUfusqTPtDFRmD2uM1Debpc0Unjy4Rc4sbhTg0",
+)
 
+# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 #MAIL SETTINGS------------------------------------------------------------------
 #EMAIL_PORT = 1025
@@ -44,26 +50,28 @@ CACHES = {
     }
 }
 
-
 #DJANGO-DEBUG-TOOLBAR-----------------------------------------------------------
-MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 INSTALLED_APPS += ['debug_toolbar', ]
 
-INTERNAL_IPS = ['127.0.0.1', '10.0.2.2', ]
-
-# tricks to have debug toolbar when developing with docker
-if os.environ.get('USE_DOCKER') == 'yes':
-    ip = socket.gethostbyname(socket.gethostname())
-    INTERNAL_IPS += [ip[:-1] + '1']
-
-ALLOWED_HOSTS = ['127.0.0.1']
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware",]
 
 DEBUG_TOOLBAR_CONFIG = {
-    'DISABLE_PANELS': [
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-    ],
-    'SHOW_TEMPLATE_CONTEXT': True,
+    "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
+    "SHOW_TEMPLATE_CONTEXT": True,
 }
+
+INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+#if env("USE_DOCKER") == "yes":
+#    import socket
+#
+#    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+#    INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
+#    try:
+#        _, _, ips = socket.gethostbyname_ex("node")
+#        INTERNAL_IPS.extend(ips)
+#    except socket.gaierror:
+        # The node container isn't started (yet?)
+#        pass
 
 #DJANGO-EXTENSIONS--------------------------------------------------------------
 INSTALLED_APPS += ['django_extensions']
