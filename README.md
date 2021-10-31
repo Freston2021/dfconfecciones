@@ -1,4 +1,7 @@
 # dfconfecciones_V_1.0
+  Developer: Eduardo Javier Silva
+             silvaeduardojavier@hotmail.com
+             WhatsApp: (+54 9 11)61085258
 
 Back End:
 
