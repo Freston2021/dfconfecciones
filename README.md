@@ -37,6 +37,7 @@ Deployment:
 Front End:
 
 *Css and Html Responsive Design
+*Bootstrap library
 *Slide of images
 *Links to social networks(Facebook,Twiter,Pinterest, Instagram)
 *Design of Images and Logos in Photoshop
