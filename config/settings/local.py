@@ -20,10 +20,10 @@ SECRET_KEY = env(
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 #MAIL SETTINGS------------------------------------------------------------------
-#EMAIL_PORT = 1025
-#EMAIL_HOST = 'smtp.mailgun.org'
-#EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
-#                   default='django.core.mail.backends.console.EmailBackend')
+EMAIL_PORT = 1025
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
+                   default='django.core.mail.backends.console.EmailBackend')
 
 #EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_HOST_USER = env('DJANGO_USER_MAIL')
