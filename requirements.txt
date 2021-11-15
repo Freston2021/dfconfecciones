@@ -156,7 +156,7 @@ scipy==1.7.1
 scp==0.13.2
 sentry-sdk==1.4.3
 simplegeneric==0.8.1
-six==1.10.0
+six==1.16.0
 snowballstemmer==1.2.1
 sorl-thumbnail==12.7.0
 Sphinx==1.5.3
