@@ -304,11 +304,11 @@ X_FRAME_OPTIONS = "DENY"
 #EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '')
 #EMAIL_USE_TLS = True
 
-EMAIL_HOST = env('MAILGUN_SMTP_SERVER', default=None)
-EMAIL_PORT = env('MAILGUN_SMTP_PORT', default=None)
-EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN', default=None)
-EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD', default=None)
-EMAIL_USE_TLS = True
+#EMAIL_HOST = env('MAILGUN_SMTP_SERVER', default=None)
+#EMAIL_PORT = env('MAILGUN_SMTP_PORT', default=None)
+#EMAIL_HOST_USER = env('MAILGUN_SMTP_LOGIN', default=None)
+#EMAIL_HOST_PASSWORD = env('MAILGUN_SMTP_PASSWORD', default=None)
+#EMAIL_USE_TLS = True
 
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
                          default='PAGINAWEB <paginaweb@dfconfecciones.com>')
