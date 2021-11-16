@@ -25,13 +25,13 @@ class ContactForm(forms.Form):
     submit_button_value = _('Enviar')
 
     name = forms.CharField(
-        label=_('Name'),
+        label=_('Nombre'),
         max_length=255,
         required=False,
     )
 
     phone = PhoneNumberField(
-        label=_('Telefono'),
+        label=_('Teléfono'),
     )
 
     email = forms.EmailField(
@@ -41,7 +41,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(
         max_length=5000,
         widget=forms.Textarea(attrs=dict(maxlength=5000)),
-        label=_('Message'),
+        label=_('Mensaje'),
     )
 
     def __init__(self, *args, **kwargs):
