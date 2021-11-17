@@ -1,7 +1,0 @@
-# PostgreSQL
-# ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=dfconfecciones
-POSTGRES_USER=bZzYdRmigzXnwPHesgkNphYleBMgikPk
-POSTGRES_PASSWORD=oGutjeO5o6qOElJSlPb7jUgaCB66m8ueAtcd0MWwllIwlenMAtY54DDaKunQ2lYV
